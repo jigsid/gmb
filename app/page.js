@@ -14,6 +14,7 @@ import AiChatbot from './components/AiChatbot';
 import PdfGenerator from './components/PdfGenerator';
 import LoadingState from './components/LoadingState';
 import SeoDetailCard from './components/SeoDetailCard';
+import Header from './components/Header';
 
 /**
  * Helper function to extract domain from a URL
@@ -293,6 +294,18 @@ export default function Home() {
     }
   };
 
+  // Helper function to get loading message based on current step
+  const getLoadingMessage = (step) => {
+    const messages = {
+      loading: "Loading your comparison...",
+      fetchingGmb: "Extracting business data...",
+      fetchingCompetitors: "Finding competitors in your area...",
+      fetchingSeo: "Analyzing website performance...",
+      generatingInsights: "Generating AI insights..."
+    };
+    return messages[step] || messages.loading;
+  };
+
   const resetForm = () => {
     setBusinessData(null);
     setCompetitors(null);
@@ -302,151 +315,149 @@ export default function Home() {
     setCurrentStep('input');
   };
 
-  const loadingMessages = {
-    loading: 'Loading your comparison...',
-    fetchingGmb: 'Fetching your business details...',
-    fetchingCompetitors: 'Identifying top competitors...',
-    fetchingSeo: 'Analyzing SEO metrics...',
-    generatingInsights: 'Generating AI insights...',
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <FaChartLine className="text-primary h-8 w-8 mr-3" />
-            <h1 className="text-xl font-bold text-gray-900">Business Comparison Tool</h1>
-          </div>
-          
-          {currentStep === 'results' && (
-            <button
-              onClick={resetForm}
-              className="text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+    <>
+      <Header 
+        currentStep={currentStep} 
+        onReset={resetForm} 
+      />
+      <div className="min-h-screen bg-background">
+        {currentStep === 'input' ? (
+          <div className="container-fluid py-2">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-4xl mx-auto"
             >
-              Compare Another Business
-            </button>
-          )}
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentStep === 'input' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Compare Your Business</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Enter your Google My Business profile URL to get insights into your online performance compared to competitors. 
-                Our AI will analyze reviews, SEO metrics, and provide actionable recommendations.
-              </p>
-            </div>
-            
-            <BusinessForm onSubmit={handleSubmit} isLoading={isLoading} error={errorMessage} />
-            
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-              <FeatureCard 
-                icon={<FaBuilding className="h-8 w-8 text-primary" />}
-                title="GMB Profile Analysis"
-                description="Enter your GMB profile URL and discover how your business compares to top competitors in your area."
-              />
-              <FeatureCard 
-                icon={<FaChartLine className="h-8 w-8 text-primary" />}
-                title="SEO Performance"
-                description="Get insights into your website's authority and traffic compared to competitors."
-              />
-              <FeatureCard 
-                icon={<FaInfoCircle className="h-8 w-8 text-primary" />}
-                title="AI Recommendations"
-                description="Receive personalized suggestions to improve your online presence and outperform competitors."
-              />
-            </div>
-          </motion.div>
-        )}
-        
-        {['loading', 'fetchingGmb', 'fetchingCompetitors', 'fetchingSeo', 'generatingInsights'].includes(currentStep) && (
-          <LoadingState message={loadingMessages[currentStep]} />
-        )}
-        
-        {currentStep === 'results' && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">
-                Results for {businessData?.name}
-              </h2>
-              <PdfGenerator 
-                businessData={businessData}
-                competitors={competitors}
-                seoData={seoData}
-                aiInsights={aiInsights}
-              />
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <BusinessMetrics businessData={businessData} seoData={seoData} />
+             
               
-              <AiChatbot 
-                businessData={businessData}
-                competitors={competitors}
-                seoData={seoData}
-                aiInsights={aiInsights}
+              <BusinessForm 
+                onSubmit={handleSubmit} 
+                isLoading={isLoading} 
+                error={errorMessage} 
               />
-            </div>
-            
-            <CompetitorTable 
-              businessData={businessData}
-              competitors={competitors}
-              seoData={seoData}
-            />
-            
-            {seoData && businessData?.website && (
-              <SeoDetailCard 
-                seoData={seoData} 
-                businessName={businessData.name} 
-              />
-            )}
-            
-            <AiInsights insights={aiInsights} />
-            
-            <div className="mt-8 text-center">
-              <p className="text-sm text-gray-500 mb-4">
-                Need to embed this tool? Use this code snippet to allow users to find and compare businesses using GMB profile URLs:
-              </p>
-              <div className="bg-gray-100 rounded-md p-4 text-sm font-mono text-gray-700 overflow-x-auto">
-                {`<iframe src="https://your-tool-url.com" width="100%" height="800px" frameborder="0"></iframe>`}
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 hidden md:grid"
+              >
+                {/* Feature cards - hidden on mobile to save space */}
+                <FeatureCard 
+                  icon={<FaChartLine />}
+                  title="Competitor Analysis"
+                  description="Compare ratings, reviews, and online presence with similar businesses in your area."
+                />
+                <FeatureCard 
+                  icon={<FaBuilding />}
+                  title="SEO Metrics"
+                  description="Get detailed insights about your website's authority, traffic potential, and competitive gaps."
+                />
+                <FeatureCard 
+                  icon={<FaInfoCircle />}
+                  title="AI-Powered Recommendations"
+                  description="Receive data-driven strategies to improve your online presence and outrank competitors."
+                />
+              </motion.div>
+            </motion.div>
+          </div>
+        ) : currentStep === 'loading' ? (
+          <div className="container-fluid py-16">
+            <LoadingState message={getLoadingMessage(currentStep)} />
+          </div>
+        ) : (
+          <div className="container-fluid py-12">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-5xl mx-auto"
+            >
+             
+              
+              <div className="flex flex-col md:flex-row justify-between items-start mb-8">
+                <div>
+                  <motion.h1 
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white"
+                  >
+                    {businessData?.name || 'Your Business'}
+                  </motion.h1>
+                  <motion.p 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-gray-700 dark:text-gray-300 mt-1 font-medium flex items-center"
+                  >
+                    {businessData?.category || 'Business Category'} <span className="ml-2 text-xs py-0.5 px-2 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-500">Growth Analysis</span>
+                  </motion.p>
+                </div>
+                
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <PdfGenerator 
+                    businessData={businessData}
+                    competitors={competitors}
+                    seoData={seoData}
+                    insights={aiInsights}
+                  />
+                </motion.div>
               </div>
-        </div>
-          </motion.div>
+              
+              <div className="space-y-8">
+                {businessData && (
+                  <BusinessMetrics businessData={businessData} seoData={seoData} />
+                )}
+                
+                {businessData && competitors && (
+                  <CompetitorTable 
+                    businessData={businessData} 
+                    competitors={competitors}
+                    seoData={seoData}
+                  />
+                )}
+                
+                {seoData && (
+                  <SeoDetailCard seoData={seoData} businessName={businessData?.name} />
+                )}
+                
+                {aiInsights && (
+                  <AiInsights insights={aiInsights} />
+                )}
+                
+                {businessData && (
+                  <AiChatbot 
+                    businessData={businessData}
+                    competitors={competitors}
+                    seoData={seoData}
+                  />
+                )}
+              </div>
+            </motion.div>
+          </div>
         )}
-      </main>
-      
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-500">
-            Business Comparison Tool © {new Date().getFullYear()}
-          </p>
-        </div>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 }
 
 function FeatureCard({ icon, title, description }) {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md">
-      <div className="flex items-center mb-4">
-        {icon}
-        <h3 className="ml-3 text-lg font-medium text-gray-900">{title}</h3>
+    <motion.div 
+      whileHover={{ y: -5, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
+      className="glass-card p-5 rounded-xl border border-card-border backdrop-blur-sm transition-all bg-white/80 dark:bg-gray-800/80"
+    >
+      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary-100 dark:bg-gradient-to-r dark:from-primary-500 dark:to-secondary-500 mb-4 shadow-md">
+        <span className="text-primary-700 dark:text-white">
+          {icon}
+        </span>
       </div>
-      <p className="text-gray-600">{description}</p>
-    </div>
+      <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{title}</h3>
+      <p className="text-sm text-gray-700 dark:text-gray-300">{description}</p>
+    </motion.div>
   );
 }

@@ -173,19 +173,19 @@ export default function PdfGenerator({ businessData, competitors, seoData, aiIns
       disabled={isGenerating || !businessData}
       className={`flex items-center justify-center px-4 py-2 rounded-md ${
         isGenerating || !businessData 
-          ? 'bg-gray-300 cursor-not-allowed' 
-          : 'bg-primary hover:bg-secondary text-white'
+          ? 'bg-gray-300 cursor-not-allowed text-gray-600' 
+          : 'bg-primary-50 hover:bg-primary-100 dark:bg-primary-500 dark:hover:bg-primary-600'
       }`}
     >
       {isGenerating ? (
         <>
-          <FaSpinner className="animate-spin mr-2" />
-          Generating PDF...
+          <FaSpinner className="animate-spin mr-2 text-gray-600 dark:text-white" />
+          <span className="text-gray-600 dark:text-white">Generating PDF...</span>
         </>
       ) : (
         <>
-          <FaFilePdf className="mr-2" />
-          Download PDF Report
+          <FaFilePdf className="mr-2 text-primary-600 dark:text-white" />
+          <span className="text-gray-700 dark:text-white">Download PDF Report</span>
         </>
       )}
     </button>

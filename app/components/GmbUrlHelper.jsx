@@ -5,68 +5,44 @@ export default function GmbUrlHelper() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mt-4">
+    <div className="mt-1">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-sm text-blue-500 hover:text-blue-600 flex items-center"
+        className="text-[10px] text-blue-600 hover:text-blue-800 flex items-center"
+        type="button"
       >
-        <FaInfoCircle className="mr-1" />
-        {isOpen ? 'Hide Instructions' : 'How to find your business on Google Maps'}
-        {isOpen ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+        <FaInfoCircle className="mr-1" size={10} />
+        {isOpen ? 'Hide instructions' : 'How to find your business on Google Maps'}
+        {isOpen ? <FaChevronUp className="ml-1" size={8} /> : <FaChevronDown className="ml-1" size={8} />}
       </button>
 
       {isOpen && (
-        <div className="mt-2 p-4 bg-blue-50 rounded-md text-sm text-gray-600">
-          <h4 className="font-medium text-gray-700 mb-2">Finding your business on Google Maps:</h4>
-          <ol className="space-y-3">
+        <div className="mt-1 p-2 bg-blue-50 rounded-md text-[10px] text-gray-700">
+          <h4 className="font-medium text-gray-800 mb-1">Finding your business on Google Maps:</h4>
+          <ol className="space-y-1">
             <li className="flex items-start">
-              <div className="flex-shrink-0 mr-2 mt-1 text-blue-500">
-                <FaSearch />
+              <div className="flex-shrink-0 mr-1 mt-0.5 text-blue-600">
+                <FaSearch size={8} />
               </div>
               <div>
-                <p>Go to <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Google Maps</a> and search for your business name + location (e.g., "Acme Business New York")</p>
+                <p>Go to <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 font-medium hover:underline">Google Maps</a> and search for your business</p>
               </div>
             </li>
             <li className="flex items-start">
-              <div className="flex-shrink-0 mr-2 mt-1 text-blue-500">
-                <FaLink />
+              <div className="flex-shrink-0 mr-1 mt-0.5 text-blue-600">
+                <FaCopy size={8} />
               </div>
               <div>
-                <p>Click on your business listing in the search results</p>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <div className="flex-shrink-0 mr-2 mt-1 text-blue-500">
-                <FaCopy />
-              </div>
-              <div>
-                <p>Copy the entire URL from your browser's address bar</p>
+                <p>Copy the URL from your browser's address bar</p>
               </div>
             </li>
           </ol>
           
-          <div className="mt-4 border-t border-blue-100 pt-3">
-            <h5 className="font-medium text-gray-700 mb-2 flex items-center">
-              <FaMapMarkedAlt className="mr-2" />
-              Acceptable URL formats:
-            </h5>
-            <div className="space-y-2">
-              <div>
-                <p className="font-medium text-xs text-gray-600">Business URL example:</p>
-                <code className="block bg-white p-2 mt-1 rounded text-xs overflow-x-auto border border-blue-100">
-                  https://www.google.com/maps/place/Business+Name/@37.1234,-122.5678,15z/
-                </code>
-              </div>
-              <div>
-                <p className="font-medium text-xs text-gray-600">Or with place details:</p>
-                <code className="block bg-white p-2 mt-1 rounded text-xs overflow-x-auto border border-blue-100 text-xs">
-                  https://www.google.com/maps/place/Business+Name/data=!4m5!3m4!...
-                </code>
-              </div>
-            </div>
-            <p className="mt-3 text-xs italic text-gray-500">
-              Our system will automatically extract your business details using the Google Places API
-            </p>
+          <div className="mt-1 border-t border-blue-200 pt-1">
+            <p className="font-medium text-[9px] text-gray-700">URL example:</p>
+            <code className="block bg-white p-1 rounded text-[8px] overflow-x-auto border border-blue-200 text-gray-800">
+              https://www.google.com/maps/place/Business+Name/@37.1234,-122.5678,15z/
+            </code>
           </div>
         </div>
       )}
