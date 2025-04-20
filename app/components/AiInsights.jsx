@@ -8,7 +8,9 @@ import {
   FaLightbulb, 
   FaExclamationTriangle, 
   FaChartLine, 
-  FaRobot
+  FaRobot,
+  FaCheckCircle,
+  FaPlus
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -52,11 +54,11 @@ export default function AiInsights({ insights }) {
       </div>
 
       {/* Summary Section - Always Visible */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mb-6 p-5 bg-primary-50/50 dark:bg-primary-900/10 backdrop-blur-sm rounded-xl border border-primary-100 dark:border-primary-900"
+        className="mb-6 p-5 bg-primary-900/10 backdrop-blur-sm rounded-xl border border-primary-900"
       >
         <p className="text-foreground-secondary leading-relaxed">{insights.summary}</p>
       </motion.div>
@@ -66,30 +68,28 @@ export default function AiInsights({ insights }) {
         {/* Strengths Section */}
         <AccordionSection 
           title="Strengths"
-          icon={<FaThumbsUp />}
+          icon={<FaCheckCircle />}
           color="success"
           isOpen={expandedSection === 'strengths'}
           toggle={() => toggleSection('strengths')}
           delay={0.15}
         >
-          <ul className="space-y-3">
+          <div className="space-y-3">
             {insights.strengths.map((strength, index) => (
-              <motion.li 
+              <motion.div 
                 key={index}
+                className="flex items-start group"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + (index * 0.05) }}
-                className="flex items-start group"
+                transition={{ delay: 0.2 + (index * 0.05) }}
               >
-                <div className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 mt-0.5 mr-3 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
+                <div className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-green-900/30 text-green-500 mt-0.5 mr-3 group-hover:scale-110 transition-transform">
+                  <FaPlus size={10} />
                 </div>
-                <span className="text-foreground-secondary">{strength}</span>
-              </motion.li>
+                <p className="text-foreground">{strength}</p>
+              </motion.div>
             ))}
-          </ul>
+          </div>
         </AccordionSection>
 
         {/* Weaknesses Section */}
@@ -151,45 +151,34 @@ export default function AiInsights({ insights }) {
         </AccordionSection>
 
         {/* Competitor Insights Section */}
-        <AccordionSection 
-          title="Competitor Insights"
-          icon={<FaChartLine />}
-          color="secondary"
-          isOpen={expandedSection === 'competitorInsights'}
-          toggle={() => toggleSection('competitorInsights')}
-          delay={0.3}
-        >
-          <div className="space-y-4">
-            {insights.competitorInsights.map((competitor, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + (index * 0.1) }}
-                className="bg-background-secondary/50 backdrop-blur-sm p-5 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:shadow-sm transition-shadow"
-              >
-                <h4 className="font-medium text-foreground flex items-center mb-3">
-                  <div className="w-2 h-2 rounded-full bg-secondary-500 mr-2"></div>
-                  {competitor.name}
-                </h4>
-                <ul className="space-y-2">
-                  {competitor.insights.map((insight, i) => (
-                    <motion.li 
-                      key={i}
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + (i * 0.05) }}
-                      className="text-sm text-foreground-secondary flex items-start"
-                    >
-                      <span className="text-secondary-500 mr-2">•</span>
-                      {insight}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </AccordionSection>
+        {insights.competitorInsights.length > 0 && (
+          <AnimatePresence>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="bg-background-secondary/50 backdrop-blur-sm p-5 rounded-xl border border-neutral-800 hover:shadow-sm transition-shadow"
+            >
+              <h3 className="text-lg font-semibold text-foreground mb-3">Competitor Insights</h3>
+              
+              <div className="space-y-4">
+                {insights.competitorInsights.map((competitor, index) => (
+                  <div key={index} className="p-3 bg-neutral-900/70 rounded-lg">
+                    <h4 className="font-medium text-foreground mb-2">{competitor.name}</h4>
+                    <ul className="space-y-2">
+                      {competitor.insights.map((insight, i) => (
+                        <li key={i} className="text-sm text-foreground-secondary flex items-start">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-1.5 mr-2 flex-shrink-0"></div>
+                          {insight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        )}
       </div>
 
       {/* Feedback Section */}
@@ -197,23 +186,23 @@ export default function AiInsights({ insights }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="mt-7 pt-4 border-t border-neutral-200 dark:border-neutral-800"
+        className="mt-7 pt-4 border-t border-neutral-800"
       >
-        <p className="text-sm text-gray-700 dark:text-foreground-tertiary mb-3">Was this growth analysis helpful?</p>
-        <div className="flex space-x-3">
+        <p className="text-sm text-foreground-tertiary mb-3">Was this growth analysis helpful?</p>
+        <div className="flex space-x-2">
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => giveFeedback(true)}
             disabled={feedbackGiven !== null}
-            className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            className={`px-4 py-1.5 rounded-full text-sm flex items-center transition-colors ${
               feedbackGiven === true 
-                ? 'bg-primary-500 text-white' 
-                : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-primary-50 dark:hover:bg-primary-900/30 text-gray-800 dark:text-foreground-secondary hover:text-primary-600 dark:hover:text-primary-500'
+                ? 'bg-primary-900/30 text-primary-500' 
+                : 'bg-neutral-800 hover:bg-primary-900/30 text-foreground-secondary hover:text-primary-500'
             }`}
           >
-            <FaThumbsUp className="mr-2" size={14} />
-            <span>Yes</span>
+            <FaThumbsUp className="mr-1.5" size={12} />
+            Yes
           </motion.button>
           
           <motion.button 
@@ -221,14 +210,14 @@ export default function AiInsights({ insights }) {
             whileTap={{ scale: 0.95 }}
             onClick={() => giveFeedback(false)}
             disabled={feedbackGiven !== null}
-            className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            className={`px-4 py-1.5 rounded-full text-sm flex items-center transition-colors ${
               feedbackGiven === false 
-                ? 'bg-neutral-500 text-white' 
-                : 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-gray-800 dark:text-foreground-secondary'
+                ? 'bg-neutral-700 text-foreground-secondary' 
+                : 'bg-neutral-800 hover:bg-neutral-700 text-foreground-secondary'
             }`}
           >
-            <FaThumbsDown className="mr-2" size={14} />
-            <span>No</span>
+            <FaThumbsDown className="mr-1.5" size={12} />
+            No
           </motion.button>
         </div>
         
@@ -236,9 +225,9 @@ export default function AiInsights({ insights }) {
           <motion.p 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="mt-3 text-sm text-primary-600 dark:text-primary-500"
+            className="mt-3 text-sm text-primary-500"
           >
-            Thanks for your feedback! Book a call with us to discuss your growth strategy in detail.
+            Thanks for your feedback! We'll continue improving our insights.
           </motion.p>
         )}
       </motion.div>
@@ -250,28 +239,28 @@ function AccordionSection({ title, icon, color = "primary", isOpen, toggle, chil
   // Color mapping for different section types
   const colorMap = {
     primary: {
-      bg: "bg-primary-50 dark:bg-primary-900/30",
+      bg: "bg-primary-900/30",
       text: "text-primary-500",
-      border: "border-primary-100 dark:border-primary-800",
-      hover: "hover:bg-primary-50 dark:hover:bg-primary-900/20"
+      border: "border-primary-800",
+      hover: "hover:bg-primary-900/20"
     },
     secondary: {
-      bg: "bg-secondary-50 dark:bg-secondary-900/30",
+      bg: "bg-secondary-900/30",
       text: "text-secondary-500",
-      border: "border-secondary-100 dark:border-secondary-800",
-      hover: "hover:bg-secondary-50 dark:hover:bg-secondary-900/20"
+      border: "border-secondary-800",
+      hover: "hover:bg-secondary-900/20"
     },
     success: {
-      bg: "bg-green-50 dark:bg-green-900/30",
+      bg: "bg-green-900/30",
       text: "text-green-500",
-      border: "border-green-100 dark:border-green-800",
-      hover: "hover:bg-green-50 dark:hover:bg-green-900/20"
+      border: "border-green-800",
+      hover: "hover:bg-green-900/20"
     },
     warning: {
-      bg: "bg-amber-50 dark:bg-amber-900/30",
+      bg: "bg-amber-900/30",
       text: "text-amber-500",
-      border: "border-amber-100 dark:border-amber-800",
-      hover: "hover:bg-amber-50 dark:hover:bg-amber-900/20"
+      border: "border-amber-800",
+      hover: "hover:bg-amber-900/20"
     }
   };
   
@@ -282,7 +271,7 @@ function AccordionSection({ title, icon, color = "primary", isOpen, toggle, chil
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden backdrop-blur-sm"
+      className="border border-neutral-800 rounded-xl overflow-hidden backdrop-blur-sm"
     >
       <motion.button
         whileHover={{ scale: 1.005 }}
@@ -296,7 +285,7 @@ function AccordionSection({ title, icon, color = "primary", isOpen, toggle, chil
           </div>
           <span className="font-medium text-foreground">{title}</span>
         </div>
-        <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isOpen ? 'bg-neutral-200 dark:bg-neutral-700' : 'bg-neutral-100 dark:bg-neutral-800'} transition-colors`}>
+        <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isOpen ? 'bg-neutral-700' : 'bg-neutral-800'} transition-colors`}>
           {isOpen ? (
             <FaChevronUp className="text-foreground-tertiary" size={12} />
           ) : (
@@ -314,7 +303,7 @@ function AccordionSection({ title, icon, color = "primary", isOpen, toggle, chil
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="p-5 border-t border-neutral-200 dark:border-neutral-800">
+            <div className="p-5 border-t border-neutral-800">
               {children}
             </div>
           </motion.div>

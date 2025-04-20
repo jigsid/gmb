@@ -56,7 +56,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
         whileTap={{ scale: 0.99 }}
       >
         <h2 className="text-xl font-bold text-foreground flex items-center">
-          <div className="flex items-center justify-center w-10 h-10 mr-3 rounded-full bg-secondary-50 dark:bg-secondary-900/30">
+          <div className="flex items-center justify-center w-10 h-10 mr-3 rounded-full bg-secondary-900/30">
             <FaGlobe className="text-secondary-500" />
           </div>
           Website SEO Potential
@@ -67,7 +67,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
           )}
         </h2>
         <motion.button 
-          className="flex items-center justify-center w-8 h-8 rounded-full bg-background-secondary text-foreground-secondary hover:bg-secondary-50 dark:hover:bg-secondary-900/30 hover:text-secondary-500 transition-colors"
+          className="flex items-center justify-center w-8 h-8 rounded-full bg-background-secondary text-foreground-secondary hover:bg-secondary-900/30 hover:text-secondary-500 transition-colors"
           whileHover={{ rotate: expanded ? -180 : 180, scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -88,7 +88,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="mt-6 p-5 bg-secondary-50/50 dark:bg-secondary-900/10 backdrop-blur-sm rounded-xl border border-secondary-100 dark:border-secondary-800 mb-6"
+              className="mt-6 p-5 bg-secondary-900/10 backdrop-blur-sm rounded-xl border border-secondary-800 mb-6"
             >
               <p className="text-foreground-secondary">
                 <span className="font-semibold">{businessName || 'This business'}</span>'s website 
@@ -179,7 +179,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
               className="mt-6 flex flex-col md:flex-row md:justify-between items-start md:items-center text-sm text-foreground-tertiary"
             >
               <div className="flex items-center mb-3 md:mb-0">
-                <div className="flex items-center justify-center w-6 h-6 mr-2 rounded-full bg-neutral-100 dark:bg-neutral-800">
+                <div className="flex items-center justify-center w-6 h-6 mr-2 rounded-full bg-neutral-800">
                   <FaInfoCircle className="text-neutral-500" size={12} />
                 </div>
                 <span>Domain: {seoData.domain}</span>
@@ -190,7 +190,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
                   href={`https://www.google.com/search?q=site:${seoData.domain}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-100 hover:bg-secondary-50 dark:bg-neutral-800 dark:hover:bg-secondary-900/30 text-foreground-secondary hover:text-secondary-500 transition-colors"
+                  className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-800 hover:bg-secondary-900/30 text-foreground-secondary hover:text-secondary-500 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -202,7 +202,7 @@ export default function SeoDetailCard({ seoData, businessName }) {
                   href={`https://${seoData.domain}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-100 hover:bg-primary-50 dark:bg-neutral-800 dark:hover:bg-primary-900/30 text-foreground-secondary hover:text-primary-500 transition-colors"
+                  className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-800 hover:bg-primary-900/30 text-foreground-secondary hover:text-primary-500 transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -244,41 +244,41 @@ function DetailMetricCard({
   // Color mapping based on the color prop
   const colorMap = {
     primary: {
-      bg: "bg-primary-50 dark:bg-primary-900/30",
+      bg: "bg-primary-900/30",
       text: "text-primary-500",
-      border: "border-primary-100 dark:border-primary-800",
-      fill: "from-primary-100 to-primary-300 dark:from-primary-900/50 dark:to-primary-700/50"
+      border: "border-primary-800",
+      fill: "from-primary-900/50 to-primary-700/50"
     },
     secondary: {
-      bg: "bg-secondary-50 dark:bg-secondary-900/30",
+      bg: "bg-secondary-900/30",
       text: "text-secondary-500",
-      border: "border-secondary-100 dark:border-secondary-800",
-      fill: "from-secondary-100 to-secondary-300 dark:from-secondary-900/50 dark:to-secondary-700/50"
+      border: "border-secondary-800",
+      fill: "from-secondary-900/50 to-secondary-700/50"
     },
     accent: {
-      bg: "bg-accent-50 dark:bg-accent-900/30",
+      bg: "bg-accent-900/30",
       text: "text-accent-500",
-      border: "border-accent-100 dark:border-accent-800",
-      fill: "from-accent-100 to-accent-300 dark:from-accent-900/50 dark:to-accent-700/50"
+      border: "border-accent-800",
+      fill: "from-accent-900/50 to-accent-700/50"
     },
     amber: {
-      bg: "bg-amber-50 dark:bg-amber-900/30",
+      bg: "bg-amber-900/30",
       text: "text-amber-500",
-      border: "border-amber-100 dark:border-amber-800",
-      fill: "from-amber-100 to-amber-300 dark:from-amber-900/50 dark:to-amber-700/50"
+      border: "border-amber-800",
+      fill: "from-amber-900/50 to-amber-700/50"
     },
     indigo: {
-      bg: "bg-indigo-50 dark:bg-indigo-900/30",
+      bg: "bg-indigo-900/30",
       text: "text-indigo-500",
-      border: "border-indigo-100 dark:border-indigo-800",
-      fill: "from-indigo-100 to-indigo-300 dark:from-indigo-900/50 dark:to-indigo-700/50"
+      border: "border-indigo-800",
+      fill: "from-indigo-900/50 to-indigo-700/50"
     },
     red: {
-      bg: "bg-red-50 dark:bg-red-900/30",
+      bg: "bg-red-900/30",
       text: "text-red-500",
-      border: "border-red-100 dark:border-red-800",
-      fill: "from-red-100 to-red-300 dark:from-red-900/50 dark:to-red-700/50"
-    }
+      border: "border-red-800",
+      fill: "from-red-900/50 to-red-700/50"
+    },
   };
   
   const colorClass = colorMap[color] || colorMap.primary;
@@ -305,8 +305,8 @@ function DetailMetricCard({
       
       <div className="mt-3 mb-2">
         <p className="text-2xl font-bold text-foreground">{displayValue || value}</p>
-        <div className="relative h-2 mt-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
-          <motion.div 
+        <div className="relative h-2 mt-2 bg-neutral-700 rounded-full overflow-hidden">
+          <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${displayPercentage}%` }}
             transition={{ duration: 1, delay: delay + 0.1, ease: "easeOut" }}

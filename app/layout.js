@@ -46,27 +46,23 @@ export const metadata = {
     maximumScale: 5,
   },
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { color: "#0a0a0a" },
   ],
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        {/* Dark mode script - executes before page renders to prevent flash */}
+        {/* Always apply dark mode */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                // Check for stored theme or system preference
-                const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                
-                // Apply theme class
-                document.documentElement.classList.toggle('dark', theme === 'dark');
+                // Always set dark mode
+                document.documentElement.classList.add('dark');
               })();
             `,
           }}
@@ -78,7 +74,7 @@ export default function RootLayout({ children }) {
         <main className="flex-grow">
           {children}
         </main>
-        <footer className="w-full py-4 mt-auto border-t border-neutral-200 dark:border-neutral-800">
+        <footer className="w-full py-4 mt-auto border-t border-neutral-800">
           <div className="container-fluid text-center text-sm text-neutral-500">
             © {new Date().getFullYear()} Business Comparison Tool • All rights reserved
           </div>

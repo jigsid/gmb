@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* 2025 Color System - Light Mode */
-  --background: #ffffff;
-  --background-secondary: #f7f9fc;
-  --background-tertiary: #edf2f7;
-  --foreground: #111827;
-  --foreground-secondary: #374151;
-  --foreground-tertiary: #6b7280;
+  /* Dark Mode Colors Only */
+  --background: #0a0a0a;
+  --background-secondary: #111827;
+  --background-tertiary: #1f2937;
+  --foreground: #f9fafb;
+  --foreground-secondary: #e5e7eb;
+  --foreground-tertiary: #9ca3af;
   
-  /* 2025 UI Elements */
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --card-border: rgba(209, 213, 219, 0.5);
-  --card-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.1);
+  /* Dark Mode UI Elements */
+  --card-bg: rgba(31, 41, 55, 0.7);
+  --card-border: rgba(55, 65, 81, 0.5);
+  --card-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.3);
   
-  /* Glass Morphism - 2025 trend */
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(209, 213, 219, 0.3);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-  --glass-blur: 10px;
+  /* Dark Glass Morphism */
+  --glass-bg: rgba(31, 41, 55, 0.65);
+  --glass-border: rgba(75, 85, 99, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   
   /* Brand Colors */
   --primary-50: #e6f9f1;
@@ -49,50 +48,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Dark mode with both class-based and media query support */
-.dark,
-html[data-theme="dark"] {
-  --background: #0a0a0a;
-  --background-secondary: #111827;
-  --background-tertiary: #1f2937;
-  --foreground: #f9fafb;
-  --foreground-secondary: #e5e7eb;
-  --foreground-tertiary: #9ca3af;
-  
-  /* Dark Mode UI Elements */
-  --card-bg: rgba(31, 41, 55, 0.7);
-  --card-border: rgba(55, 65, 81, 0.5);
-  --card-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.3);
-  
-  /* Dark Glass Morphism */
-  --glass-bg: rgba(31, 41, 55, 0.65);
-  --glass-border: rgba(75, 85, 99, 0.3);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
+/* Remove media queries for light mode and keep dark styles */
 
-/* System preference fallback */
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --background: #0a0a0a;
-    --background-secondary: #111827;
-    --background-tertiary: #1f2937;
-    --foreground: #f9fafb;
-    --foreground-secondary: #e5e7eb;
-    --foreground-tertiary: #9ca3af;
-    
-    /* Dark Mode UI Elements */
-    --card-bg: rgba(31, 41, 55, 0.7);
-    --card-border: rgba(55, 65, 81, 0.5);
-    --card-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.3);
-    
-    /* Dark Glass Morphism */
-    --glass-bg: rgba(31, 41, 55, 0.65);
-    --glass-border: rgba(75, 85, 99, 0.3);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  }
-}
-
-/* 2025 Trends: Smooth Scrolling & Selection Styling */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px; /* For fixed headers */
@@ -101,22 +58,8 @@ html {
 }
 
 ::selection {
-  background-color: var(--primary-200);
-  color: var(--primary-900);
-}
-
-/* High contrast selection for dark mode */
-.dark ::selection,
-html[data-theme="dark"] ::selection {
   background-color: var(--primary-500);
   color: var(--background);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) ::selection {
-    background-color: var(--primary-500);
-    color: var(--background);
-  }
 }
 
 body {
@@ -188,45 +131,12 @@ button, a {
   background-image: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  animation: shimmer 2s infinite;
-  content: '';
-}
-
-.dark .skeleton::after,
-html[data-theme="dark"] .skeleton::after {
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0,
     rgba(255, 255, 255, 0.05) 20%,
     rgba(255, 255, 255, 0.1) 60%,
     rgba(255, 255, 255, 0)
   );
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) .skeleton::after {
-    background-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0.05) 20%,
-      rgba(255, 255, 255, 0.1) 60%,
-      rgba(255, 255, 255, 0)
-    );
-  }
-}
-
-/* Tailwind dark mode support */
-@layer utilities {
-  .dark\:bg-background {
-    background-color: var(--background);
-  }
-  .dark\:text-foreground {
-    color: var(--foreground);
-  }
+  animation: shimmer 2s infinite;
+  content: '';
 }
 
 /* Support for reduced motion preferences */

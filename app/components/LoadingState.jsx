@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LoadingState({ message = "Loading your comparison..." }) {
+  const [progress, setProgress] = useState(5);
   const steps = [
     "Connecting to business database...",
     "Analyzing your competitors...",
@@ -8,6 +10,18 @@ export default function LoadingState({ message = "Loading your comparison..." })
     "Generating growth insights...",
     "Identifying optimization opportunities..."
   ];
+  
+  // Simulate progress increase over time
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress(prevProgress => {
+        const newProgress = prevProgress + 5;
+        return newProgress > 95 ? 95 : newProgress;
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
   
   return (
     <motion.div 
@@ -31,7 +45,7 @@ export default function LoadingState({ message = "Loading your comparison..." })
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute inset-0 bg-gradient-to-br from-primary-400 to-secondary-500 dark:from-primary-600 dark:to-secondary-600"
+          className="absolute inset-0 bg-gradient-to-br from-primary-600 to-secondary-600"
           style={{ 
             filter: "blur(6px)",
             zIndex: 1
@@ -52,7 +66,7 @@ export default function LoadingState({ message = "Loading your comparison..." })
             ease: "easeInOut",
             delay: 0.5
           }}
-          className="absolute inset-0 bg-gradient-to-tr from-secondary-500 to-accent-500 dark:from-secondary-600 dark:to-accent-600 opacity-70"
+          className="absolute inset-0 bg-gradient-to-tr from-secondary-600 to-accent-600 opacity-70"
           style={{ 
             filter: "blur(8px)",
             zIndex: 2,
@@ -146,25 +160,18 @@ export default function LoadingState({ message = "Loading your comparison..." })
       </motion.div>
       
       {/* Progress bar */}
-      <motion.div 
-        className="w-full max-w-sm mt-10 h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden"
-        initial={{ opacity: 0, scaleX: 0.8 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ delay: 0.4 }}
+      <div 
+        className="w-full max-w-sm mt-10 h-2 bg-neutral-700 rounded-full overflow-hidden"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={progress}
       >
         <motion.div 
           className="h-full bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500"
-          animate={{ 
-            width: ["5%", "95%"],
-            x: ["0%", "5%"]
-          }}
-          transition={{ 
-            duration: 15,
-            ease: "easeInOut",
-            times: [0, 1],
-          }}
+          style={{ width: `${progress}%` }}
         />
-      </motion.div>
+      </div>
       
       {/* Value proposition hint */}
       <motion.p 

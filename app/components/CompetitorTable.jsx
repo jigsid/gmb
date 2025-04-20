@@ -54,7 +54,7 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
     >
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div className="flex items-center mb-4 md:mb-0">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-50 dark:bg-secondary-900/30 mr-3">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-secondary-900/30 mr-3">
             <FaChartBar className="text-secondary-500" />
           </div>
           <div>
@@ -70,8 +70,8 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
             onClick={() => handleSort('rating')}
             className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center ${
               sortField === 'rating' 
-                ? 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400' 
-                : 'bg-neutral-100 dark:bg-neutral-800 text-foreground-tertiary'
+                ? 'bg-secondary-900/30 text-secondary-400' 
+                : 'bg-neutral-800 text-foreground-tertiary'
             }`}
           >
             <FaStar className="mr-1.5" size={10} />
@@ -87,8 +87,8 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
             onClick={() => handleSort('reviews')}
             className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center ${
               sortField === 'reviews' 
-                ? 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400' 
-                : 'bg-neutral-100 dark:bg-neutral-800 text-foreground-tertiary'
+                ? 'bg-secondary-900/30 text-secondary-400' 
+                : 'bg-neutral-800 text-foreground-tertiary'
             }`}
           >
             <FaFilter className="mr-1.5" size={10} />
@@ -104,9 +104,9 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-10 px-4 bg-background-secondary/50 rounded-xl border border-neutral-200 dark:border-neutral-800"
+          className="text-center py-10 px-4 bg-background-secondary/50 rounded-xl border border-neutral-800"
         >
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-100 dark:bg-neutral-800">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-800">
             <FaBuilding className="text-neutral-400" size={24} />
           </div>
           <h3 className="text-lg font-semibold text-foreground mb-2">No competitors found</h3>
@@ -115,8 +115,8 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
           </p>
         </motion.div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
-          <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-800">
+        <div className="overflow-x-auto rounded-xl border border-neutral-800">
+          <table className="min-w-full divide-y divide-neutral-800">
             <thead className="bg-background-secondary">
               <tr>
                 <th scope="col" className="px-6 py-3.5 text-left text-xs font-medium text-foreground-tertiary uppercase tracking-wider">
@@ -133,7 +133,7 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-background-secondary/30 backdrop-blur-sm divide-y divide-neutral-200 dark:divide-neutral-800">
+            <tbody className="bg-background-secondary/30 backdrop-blur-sm divide-y divide-neutral-800">
               {/* Businesses (yours and competitors) */}
               {allBusinesses.map((business, index) => {
                 // Calculate metrics
@@ -148,7 +148,7 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + (index * 0.05) }}
                     className={`
-                      ${business.isYou ? 'bg-primary-50/50 dark:bg-primary-900/20' : 'hover:bg-neutral-100 dark:hover:bg-neutral-800/50'}
+                      ${business.isYou ? 'bg-primary-900/20' : 'hover:bg-neutral-800/50'}
                       transition-colors
                     `}
                   >
@@ -156,10 +156,10 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                       <div className="flex items-center">
                         <div className={`flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full mr-3 ${
                           business.isYou 
-                            ? 'bg-primary-100 dark:bg-primary-900/50 text-primary-500' 
+                            ? 'bg-primary-900/50 text-primary-500' 
                             : isTopRated 
-                              ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-500'
-                              : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-500'
+                              ? 'bg-amber-900/50 text-amber-500'
+                              : 'bg-neutral-800 text-neutral-500'
                         }`}>
                           {business.isYou ? (
                             <FaBuilding size={16} />
@@ -172,9 +172,9 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                         <div>
                           <div className="text-sm font-medium text-foreground flex items-center">
                             {business.name || 'Unknown'} 
-                            {business.isYou && <span className="ml-2 text-xs py-0.5 px-2 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-500">You</span>}
+                            {business.isYou && <span className="ml-2 text-xs py-0.5 px-2 rounded-full bg-primary-900/50 text-primary-500">You</span>}
                             {isTopRated && !business.isYou && (
-                              <span className="ml-2 text-xs py-0.5 px-2 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-500">Top Rated</span>
+                              <span className="ml-2 text-xs py-0.5 px-2 rounded-full bg-amber-900/50 text-amber-500">Top Rated</span>
                             )}
                           </div>
                           <div className="text-xs text-foreground-tertiary mt-1">{business.address || business.location || ''}</div>
@@ -194,14 +194,14 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                                     ? 'text-amber-400' 
                                     : business.rating && star <= business.rating 
                                       ? 'text-amber-300' // Half star
-                                      : 'text-neutral-300 dark:text-neutral-700'
+                                      : 'text-neutral-700'
                                 } w-3 h-3`} 
                               />
                             ))}
                           </div>
                           {business.isEstimated && <span className="ml-1 text-xs text-foreground-tertiary">*</span>}
                         </div>
-                        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-neutral-700 rounded-full h-1.5 overflow-hidden">
                           <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${ratingPercentage}%` }}
@@ -217,7 +217,7 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                           {typeof business.reviews === 'number' ? business.reviews.toLocaleString() : 'N/A'}
                           {business.isEstimated && <span className="ml-1 text-xs text-foreground-tertiary">*</span>}
                         </div>
-                        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-neutral-700 rounded-full h-1.5 overflow-hidden">
                           <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${reviewsPercentage}%` }}
@@ -233,7 +233,7 @@ export default function CompetitorTable({ businessData, competitors, seoData }) 
                           href={business.website} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-100 hover:bg-primary-50 dark:bg-neutral-800 dark:hover:bg-primary-900/30 text-foreground-secondary hover:text-primary-500 transition-colors inline-flex"
+                          className="py-1.5 px-3 rounded-full text-xs flex items-center bg-neutral-800 hover:bg-primary-900/30 text-foreground-secondary hover:text-primary-500 transition-colors inline-flex"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >

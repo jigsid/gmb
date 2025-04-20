@@ -98,7 +98,7 @@ export default function AiChatbot({ businessData, competitors, seoData, aiInsigh
               max-w-3/4 p-3 rounded-lg shadow-sm
               ${message.role === 'user' 
                 ? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-tr-none' 
-                : 'bg-white dark:bg-neutral-800 text-foreground rounded-tl-none'}
+                : 'bg-neutral-800 text-foreground rounded-tl-none'}
             `}>
               <div className="flex items-center mb-1">
                 {message.role === 'bot' ? (
@@ -121,7 +121,7 @@ export default function AiChatbot({ businessData, competitors, seoData, aiInsigh
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-start"
           >
-            <div className="bg-white dark:bg-neutral-800 text-foreground p-3 rounded-lg rounded-tl-none max-w-3/4 shadow-sm">
+            <div className="bg-neutral-800 text-foreground p-3 rounded-lg rounded-tl-none max-w-3/4 shadow-sm">
               <div className="flex items-center mb-1">
                 <FaRobot className="mr-2 text-primary-500" size={14} />
                 <span className="text-xs font-medium">Growth Assistant</span>
@@ -149,7 +149,7 @@ export default function AiChatbot({ businessData, competitors, seoData, aiInsigh
               value={input}
               onChange={handleInputChange}
               placeholder="Ask about SEO strategy, competitor analysis, or growth tactics..."
-              className="w-full pl-10 pr-4 py-3 border border-card-border rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 bg-white/80 dark:bg-neutral-900/50 backdrop-blur-sm"
+              className="w-full pl-10 pr-4 py-3 border border-card-border rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 bg-neutral-900/50 backdrop-blur-sm"
               disabled={isLoading}
             />
           </div>
@@ -158,7 +158,7 @@ export default function AiChatbot({ businessData, competitors, seoData, aiInsigh
             disabled={isLoading || !input.trim()}
             className={`px-5 py-3 rounded-r-xl flex items-center justify-center ${
               isLoading || !input.trim() 
-                ? 'bg-gray-300 dark:bg-neutral-700 cursor-not-allowed' 
+                ? 'bg-neutral-700 cursor-not-allowed' 
                 : 'bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white'
             }`}
           >
