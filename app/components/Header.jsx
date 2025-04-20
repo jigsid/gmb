@@ -89,7 +89,7 @@ export default function Header({ currentStep, onReset }) {
           transition={{ duration: 0.5 }}
         >
           <motion.a
-            href="https://github.com/username/business-comparison-tool"
+            href="https://github.com/jigsid/gmb"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-full text-gray-300 hover:text-primary-400 hover:bg-neutral-800 transition-colors"

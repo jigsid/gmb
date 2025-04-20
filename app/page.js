@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight, FaCode, FaClipboard, FaGlobe, FaLink, FaChartBar, FaLightbulb, FaBrain, FaComments } from 'react-icons/fa';
+import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight, FaCode, FaClipboard, FaGlobe, FaLink, FaChartBar, FaLightbulb } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 // Components
@@ -18,6 +18,7 @@ import Header from './components/Header';
 import GmbDataDashboard from './components/GmbDataDashboard';
 import GmbAnalyticsDashboard from './components/GmbAnalyticsDashboard';
 import GmbDataExporter from './components/GmbDataExporter';
+import CompetitorAnalytics from './components/CompetitorAnalytics';
 
 /**
  * Helper function to extract domain from a URL
@@ -50,7 +51,7 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState('input');
   const [errorMessage, setErrorMessage] = useState('');
   const [activeGmbTab, setActiveGmbTab] = useState('overview');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [competitorView, setCompetitorView] = useState('table'); // 'table' or 'analytics'
 
   const handleSubmit = async (formData) => {
     setIsLoading(true);
@@ -76,6 +77,8 @@ export default function Home() {
       mockBusinessData.name = namePart.replace(/\+/g, ' ');
     }
     
+    let actualBusinessData = null;
+    
     try {
       // Step 1: Fetch GMB data
       setCurrentStep('fetchingGmb');
@@ -97,48 +100,77 @@ export default function Home() {
         
         const gmbData = await gmbResponse.json();
         setBusinessData(gmbData);
+        actualBusinessData = gmbData;
       } catch (error) {
         console.warn('GMB API error, using fallback data:', error);
         setBusinessData(mockBusinessData);
+        actualBusinessData = mockBusinessData;
       }
       
-      // Without proper businessData, we can't continue using real APIs
-      // so we'll use mock data for the rest
-      
-      // Step 2: Generate mock competitors
+      // Step 2: Fetch real competitors based on business location and category
       setCurrentStep('fetchingCompetitors');
-      const mockCompetitors = [
-        {
-          name: 'Competitor One',
-          rating: 4.2,
-          reviews: 98,
-          location: mockBusinessData.location,
-          category: mockBusinessData.category,
-          website: 'https://competitor1.com'
-        },
-        {
-          name: 'Competitor Two',
-          rating: 4.7,
-          reviews: 152,
-          location: mockBusinessData.location,
-          category: mockBusinessData.category,
-          website: 'https://competitor2.com'
-        },
-        {
-          name: 'Competitor Three',
-          rating: 3.9,
-          reviews: 65,
-          location: mockBusinessData.location,
-          category: mockBusinessData.category,
-          website: 'https://competitor3.com'
+      try {
+        // Use extracted business data to find real competitors
+        const competitorsResponse = await fetch('/api/custom-competitors', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            businessCategory: actualBusinessData.category,
+            businessLocation: actualBusinessData.location,
+            coordinates: actualBusinessData.coordinates
+          }),
+        });
+        
+        if (!competitorsResponse.ok) {
+          throw new Error('Failed to fetch competitors');
         }
-      ];
-      setCompetitors(mockCompetitors);
+        
+        const realCompetitors = await competitorsResponse.json();
+        
+        if (realCompetitors && realCompetitors.length > 0) {
+          setCompetitors(realCompetitors);
+          console.log('Successfully fetched real competitors:', realCompetitors.length);
+        } else {
+          throw new Error('No competitors found');
+        }
+      } catch (error) {
+        console.warn('Competitors API error, using fallback data:', error);
+        // Generate mock competitors if real API fails
+        const mockCompetitors = [
+          {
+            name: 'Competitor One',
+            rating: 4.2,
+            reviews: 98,
+            location: actualBusinessData.location,
+            category: actualBusinessData.category,
+            website: 'https://competitor1.com'
+          },
+          {
+            name: 'Competitor Two',
+            rating: 4.7,
+            reviews: 152,
+            location: actualBusinessData.location,
+            category: actualBusinessData.category,
+            website: 'https://competitor2.com'
+          },
+          {
+            name: 'Competitor Three',
+            rating: 3.9,
+            reviews: 65,
+            location: actualBusinessData.location,
+            category: actualBusinessData.category,
+            website: 'https://competitor3.com'
+          }
+        ];
+        setCompetitors(mockCompetitors);
+      }
       
       // Step 3: Generate mock SEO data
       setCurrentStep('fetchingSeo');
       const mockSeoData = {
-        domain: extractDomainFromUrl(mockBusinessData.website),
+        domain: extractDomainFromUrl(actualBusinessData.website),
         domainAuthority: 35,
         pageAuthority: 28,
         spamScore: 1,
@@ -152,11 +184,11 @@ export default function Home() {
       // Step 4: Generate mock AI insights
       setCurrentStep('generatingInsights');
       const mockAiInsights = {
-        summary: `${mockBusinessData.name} has a rating of ${mockBusinessData.rating}/5 with ${mockBusinessData.reviews} reviews. Our analysis shows opportunities to improve your online presence and outrank competitors.`,
+        summary: `${actualBusinessData.name} has a rating of ${actualBusinessData.rating}/5 with ${actualBusinessData.reviews} reviews. Our analysis shows opportunities to improve your online presence and outrank competitors.`,
         strengths: [
-          `Established ${mockBusinessData.category} business with online presence`,
-          `Strong customer review base (${mockBusinessData.reviews} reviews)`,
-          `Above average rating of ${mockBusinessData.rating}/5`
+          `Established ${actualBusinessData.category} business with online presence`,
+          `Strong customer review base (${actualBusinessData.reviews} reviews)`,
+          `Above average rating of ${actualBusinessData.rating}/5`
         ],
         weaknesses: [
           'Website SEO could be improved for better visibility',
@@ -214,6 +246,11 @@ export default function Home() {
     setAiInsights(null);
     setErrorMessage('');
     setCurrentStep('input');
+  };
+
+  // Update competitor view
+  const toggleCompetitorView = () => {
+    setCompetitorView(competitorView === 'table' ? 'analytics' : 'table');
   };
 
   return (
@@ -322,10 +359,8 @@ export default function Home() {
               </div>
             </div>
           </section>
-          
-         
-          {/* Pricing Comparison - New */}
-          <section className="py-16 bg-gray-950 relative overflow-hidden">
+           {/* Pricing Comparison - New */}
+           <section className="py-16 bg-gray-950 relative overflow-hidden">
             <div className="absolute -bottom-80 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl"></div>
             <div className="absolute -top-40 -left-20 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
             
@@ -424,6 +459,9 @@ export default function Home() {
               </div>
             </div>
           </section>
+          
+          
+          
           {/* Feature Section - kept from previous version but styled to match new design */}
           <section id="features" className="py-16 bg-gradient-to-b from-gray-900 to-gray-950">
             <div className="container mx-auto px-6">
@@ -649,7 +687,7 @@ export default function Home() {
             </div>
           </section>
           
-          
+         
           
           {/* Footer - New */}
           <footer className="bg-gray-950 border-t border-gray-800 pt-16 pb-8">
@@ -729,62 +767,61 @@ export default function Home() {
       ) : isLoading ? (
         <LoadingState message={getLoadingMessage(currentStep)} />
       ) : (
-        <div className="min-h-screen flex flex-col md:flex-row bg-gray-950">
-          {/* Sidebar for Desktop */}
-          <div className="hidden md:flex flex-col w-64 bg-gray-900/80 backdrop-blur-md border-r border-gray-800 h-screen sticky top-0 overflow-y-auto py-6 px-4">
-            <div className="mb-8 px-2">
-              <h2 className="text-xl font-bold text-white mb-1 flex items-center">
-                <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-bold mr-2">
-                  {businessData.name.charAt(0)}
-                </span>
-                <span className="truncate">{businessData.name}</span>
-              </h2>
-              <div className="flex items-center text-gray-400 text-sm">
-                <FaStar className="text-amber-500 mr-1" />
-                <span>{businessData.rating} ({businessData.reviews} reviews)</span>
-              </div>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="container mx-auto px-4 py-8"
+        >
+          <div className="flex flex-wrap justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-foreground mb-4 md:mb-0">Business Intelligence</h1>
+            
+            <div className="flex space-x-2">
+              <button 
+                className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                  activeGmbTab === 'overview' 
+                    ? 'bg-primary-900/30 text-primary-500' 
+                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
+                }`}
+                onClick={() => setActiveGmbTab('overview')}
+              >
+                Overview
+              </button>
+              
+              <button 
+                className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                  activeGmbTab === 'analytics' 
+                    ? 'bg-primary-900/30 text-primary-500' 
+                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
+                }`}
+                onClick={() => setActiveGmbTab('analytics')}
+              >
+                Analytics
+              </button>
+              
+              <button 
+                className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                  activeGmbTab === 'competitors' 
+                    ? 'bg-primary-900/30 text-primary-500' 
+                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
+                }`}
+                onClick={() => setActiveGmbTab('competitors')}
+              >
+                Competitors
+              </button>
+              
+              <button 
+                className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                  activeGmbTab === 'insights' 
+                    ? 'bg-primary-900/30 text-primary-500' 
+                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
+                }`}
+                onClick={() => setActiveGmbTab('insights')}
+              >
+                AI Insights
+              </button>
             </div>
             
-            <nav className="space-y-1 flex-grow">
-              <SidebarNavItem 
-                icon={<FaChartLine />} 
-                text="Overview" 
-                isActive={activeGmbTab === 'overview'} 
-                onClick={() => setActiveGmbTab('overview')}
-              />
-              <SidebarNavItem 
-                icon={<FaChartBar />} 
-                text="Analytics" 
-                isActive={activeGmbTab === 'analytics'} 
-                onClick={() => setActiveGmbTab('analytics')}
-              />
-              <SidebarNavItem 
-                icon={<FaBuilding />} 
-                text="Competitors" 
-                isActive={activeGmbTab === 'competitors'} 
-                onClick={() => setActiveGmbTab('competitors')}
-              />
-              <SidebarNavItem 
-                icon={<FaBrain />} 
-                text="AI Insights" 
-                isActive={activeGmbTab === 'insights'} 
-                onClick={() => setActiveGmbTab('insights')}
-              />
-              <SidebarNavItem 
-                icon={<FaGlobe />} 
-                text="SEO Details" 
-                isActive={activeGmbTab === 'seo'} 
-                onClick={() => setActiveGmbTab('seo')}
-              />
-              <SidebarNavItem 
-                icon={<FaComments />} 
-                text="AI Chatbot" 
-                isActive={activeGmbTab === 'chatbot'} 
-                onClick={() => setActiveGmbTab('chatbot')}
-              />
-            </nav>
-            
-            <div className="border-t border-gray-800 pt-4 mt-4 space-y-2">
+            <div className="flex space-x-2">
               <GmbDataExporter businessData={businessData} />
               <PdfGenerator 
                 businessData={businessData}
@@ -792,237 +829,74 @@ export default function Home() {
                 seoData={seoData}
                 aiInsights={aiInsights}
               />
-              <button
-                onClick={resetForm}
-                className="flex w-full items-center justify-center px-4 py-2 border border-gray-700 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors"
-              >
-                <FaInfoCircle className="mr-2" />
-                Try Another Business
-              </button>
             </div>
           </div>
           
-          {/* Mobile Header/Menu */}
-          <div className="md:hidden fixed top-0 inset-x-0 z-30 bg-gray-900/90 backdrop-blur-md border-b border-gray-800 p-4">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-bold mr-2">
-                  {businessData.name.charAt(0)}
-                </span>
-                <div>
-                  <h2 className="text-base font-bold text-white truncate max-w-[180px]">{businessData.name}</h2>
-                  <div className="flex items-center text-gray-400 text-xs">
-                    <FaStar className="text-amber-500 mr-1" />
-                    <span>{businessData.rating} ({businessData.reviews})</span>
-                  </div>
-                </div>
-              </div>
-              
-              <button 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg bg-gray-800 text-gray-300"
-              >
-                {mobileMenuOpen ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                )}
-              </button>
-            </div>
-            
-            {/* Mobile Navigation Menu */}
-            {mobileMenuOpen && (
-              <motion.div 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute top-full left-0 right-0 bg-gray-900 border-b border-gray-800 shadow-lg"
-              >
-                <nav className="flex flex-col py-2">
-                  <MobileNavItem 
-                    icon={<FaChartLine />} 
-                    text="Overview" 
-                    isActive={activeGmbTab === 'overview'} 
-                    onClick={() => {
-                      setActiveGmbTab('overview');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                  <MobileNavItem 
-                    icon={<FaChartBar />} 
-                    text="Analytics" 
-                    isActive={activeGmbTab === 'analytics'} 
-                    onClick={() => {
-                      setActiveGmbTab('analytics');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                  <MobileNavItem 
-                    icon={<FaBuilding />} 
-                    text="Competitors" 
-                    isActive={activeGmbTab === 'competitors'} 
-                    onClick={() => {
-                      setActiveGmbTab('competitors');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                  <MobileNavItem 
-                    icon={<FaBrain />} 
-                    text="AI Insights" 
-                    isActive={activeGmbTab === 'insights'} 
-                    onClick={() => {
-                      setActiveGmbTab('insights');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                  <MobileNavItem 
-                    icon={<FaGlobe />} 
-                    text="SEO Details" 
-                    isActive={activeGmbTab === 'seo'} 
-                    onClick={() => {
-                      setActiveGmbTab('seo');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                  <MobileNavItem 
-                    icon={<FaComments />} 
-                    text="AI Chatbot" 
-                    isActive={activeGmbTab === 'chatbot'} 
-                    onClick={() => {
-                      setActiveGmbTab('chatbot');
-                      setMobileMenuOpen(false);
-                    }}
-                  />
-                </nav>
-                
-                <div className="flex p-2 border-t border-gray-800 gap-2">
-                  <GmbDataExporter businessData={businessData} className="flex-1" />
-                  <PdfGenerator 
-                    businessData={businessData}
-                    competitors={competitors}
-                    seoData={seoData}
-                    aiInsights={aiInsights}
-                    className="flex-1"
-                  />
-                </div>
-              </motion.div>
+          <div className="mb-8">
+            {activeGmbTab === 'overview' && (
+              <GmbDataDashboard businessData={businessData} seoData={seoData} />
             )}
-          </div>
-          
-          {/* Main Content Area */}
-          <div className="flex-1 md:pt-0 pt-20 pb-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6">
-              {/* Page Header */}
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-                <div className="mb-4 md:mb-0">
-                  <h1 className="text-2xl font-bold text-white">
-                    {activeGmbTab === 'overview' && 'Business Overview'}
-                    {activeGmbTab === 'analytics' && 'Performance Analytics'}
-                    {activeGmbTab === 'competitors' && 'Competitor Analysis'}
-                    {activeGmbTab === 'insights' && 'AI Growth Insights'}
-                    {activeGmbTab === 'seo' && 'SEO Analysis'}
-                    {activeGmbTab === 'chatbot' && 'AI Assistant'}
-                  </h1>
-                  <p className="text-gray-400 mt-1">
-                    {activeGmbTab === 'overview' && 'Key metrics and business information'}
-                    {activeGmbTab === 'analytics' && 'Performance trends and growth metrics'}
-                    {activeGmbTab === 'competitors' && `Comparing with ${competitors?.length || 0} local competitors`}
-                    {activeGmbTab === 'insights' && 'AI-powered recommendations for growth'}
-                    {activeGmbTab === 'seo' && 'Website SEO performance metrics'}
-                    {activeGmbTab === 'chatbot' && 'Get answers about your business data'}
-                  </p>
+            
+            {activeGmbTab === 'analytics' && (
+              <GmbAnalyticsDashboard businessData={businessData} seoData={seoData} competitors={competitors} />
+            )}
+            
+            {activeGmbTab === 'competitors' && (
+              <div className="space-y-6">
+                <div className="flex justify-end">
+                  <button
+                    onClick={toggleCompetitorView}
+                    className="px-4 py-2 rounded-lg bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20 text-sm"
+                  >
+                    {competitorView === 'table' ? 'Show Advanced Analytics' : 'Show Comparison Table'}
+                  </button>
                 </div>
                 
-                {/* Tab Navigation (Tablet/Mobile) */}
-                <div className="md:hidden overflow-x-auto pb-2 -mx-4 px-4">
-                  <div className="flex space-x-2 min-w-max">
-                    <TabButton 
-                      text="Overview" 
-                      isActive={activeGmbTab === 'overview'} 
-                      onClick={() => setActiveGmbTab('overview')}
-                    />
-                    <TabButton 
-                      text="Analytics" 
-                      isActive={activeGmbTab === 'analytics'} 
-                      onClick={() => setActiveGmbTab('analytics')}
-                    />
-                    <TabButton 
-                      text="Competitors" 
-                      isActive={activeGmbTab === 'competitors'} 
-                      onClick={() => setActiveGmbTab('competitors')}
-                    />
-                    <TabButton 
-                      text="AI Insights" 
-                      isActive={activeGmbTab === 'insights'} 
-                      onClick={() => setActiveGmbTab('insights')}
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              {/* Main Content */}
-              <div className="mb-8">
-                {activeGmbTab === 'overview' && (
-                  <GmbDataDashboard businessData={businessData} seoData={seoData} />
-                )}
-                
-                {activeGmbTab === 'analytics' && (
-                  <GmbAnalyticsDashboard businessData={businessData} seoData={seoData} competitors={competitors} />
-                )}
-                
-                {activeGmbTab === 'competitors' && (
+                {competitorView === 'table' ? (
                   <CompetitorTable 
                     businessData={businessData} 
                     competitors={competitors} 
                     seoData={seoData} 
                   />
-                )}
-                
-                {activeGmbTab === 'insights' && (
-                  <AiInsights insights={aiInsights} />
-                )}
-                
-                {activeGmbTab === 'seo' && seoData && (
-                  <SeoDetailCard seoData={seoData} businessName={businessData.name} />
-                )}
-                
-                {activeGmbTab === 'chatbot' && (
-                  <AiChatbot 
-                    businessData={businessData}
-                    competitors={competitors}
-                    seoData={seoData}
-                    aiInsights={aiInsights}
+                ) : (
+                  <CompetitorAnalytics 
+                    businessData={businessData} 
+                    competitors={competitors} 
+                    seoData={seoData} 
                   />
                 )}
               </div>
-              
-              {/* Footer Actions (Mobile Only) */}
-              <div className="fixed bottom-0 inset-x-0 md:hidden bg-gray-900/90 backdrop-blur-md border-t border-gray-800 p-3 flex space-x-2">
-                <button
-                  onClick={resetForm}
-                  className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-800 rounded-lg text-gray-300 text-sm"
-                >
-                  <FaInfoCircle className="mr-1.5" size={14} />
-                  Try Another
-                </button>
-                <GmbDataExporter 
-                  businessData={businessData} 
-                  className="flex-1 text-sm py-2 px-3 justify-center"
-                />
-                <PdfGenerator 
-                  businessData={businessData}
-                  competitors={competitors}
-                  seoData={seoData}
-                  aiInsights={aiInsights}
-                  className="flex-1 text-sm py-2 px-3 justify-center"
-                />
-              </div>
-            </div>
+            )}
+            
+            {activeGmbTab === 'insights' && (
+              <AiInsights insights={aiInsights} />
+            )}
           </div>
-        </div>
+          
+          {/* SEO Detail Card & Chatbot remain outside of the tab system */}
+          {seoData && (
+            <SeoDetailCard seoData={seoData} businessName={businessData.name} />
+          )}
+          
+          <div className="mt-8">
+            <AiChatbot 
+              businessData={businessData}
+              competitors={competitors}
+              seoData={seoData}
+              aiInsights={aiInsights}
+            />
+          </div>
+          
+          <div className="mt-8 flex justify-between">
+            <button
+              onClick={resetForm}
+              className="flex items-center justify-center px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
+            >
+              <FaInfoCircle className="mr-2" />
+              Try Another Business
+            </button>
+          </div>
+        </motion.div>
       )}
       
       {/* Embed Code Modal */}
@@ -1251,56 +1125,5 @@ function PlanFeature({ text, included, className }) {
       )}
       <span className={included ? "text-gray-300" : "text-gray-500"}>{text}</span>
     </div>
-  );
-}
-
-// New Navigation Components
-function SidebarNavItem({ icon, text, isActive, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors ${
-        isActive 
-          ? 'bg-primary-900/30 text-primary-500' 
-          : 'text-gray-400 hover:text-white hover:bg-gray-800/70'
-      }`}
-    >
-      <span className="flex-shrink-0">{icon}</span>
-      <span className="font-medium">{text}</span>
-      {isActive && (
-        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-500"></span>
-      )}
-    </button>
-  );
-}
-
-function MobileNavItem({ icon, text, isActive, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex items-center space-x-3 px-4 py-3 transition-colors ${
-        isActive 
-          ? 'bg-primary-900/30 text-primary-500' 
-          : 'text-gray-400 hover:text-white hover:bg-gray-800/70'
-      }`}
-    >
-      <span className="flex-shrink-0">{icon}</span>
-      <span className="font-medium">{text}</span>
-    </button>
-  );
-}
-
-function TabButton({ text, isActive, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-        isActive 
-          ? 'bg-primary-900/30 text-primary-500' 
-          : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-      }`}
-    >
-      {text}
-    </button>
   );
 }

@@ -6,6 +6,7 @@ An AI-powered tool that helps businesses compare their online presence with comp
 
 - **GMB Profile URL Input**: Simply enter your Google My Business profile URL to analyze your business
 - **Competitor Analysis**: Identify top competitors in your area
+- **Places Autocomplete**: Use Google Places API to find and autocomplete locations when searching for competitors
 - **SEO Performance**: Analyze domain authority and traffic performance
 - **AI Insights**: Get AI-generated recommendations and competitor analysis
 - **Interactive Chatbot**: Ask questions about your business performance
