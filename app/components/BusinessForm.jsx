@@ -43,7 +43,7 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
     >
       <motion.form 
         onSubmit={handleSubmit} 
-        className="space-y-6"
+        className="space-y-4"
       >
         <div>
           <div className={`relative transition-all duration-300 ${isFocused ? 'scale-[1.02]' : 'scale-100'}`}>
@@ -123,10 +123,10 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full relative overflow-hidden rounded-xl py-4 text-base font-semibold ${
+          className={`w-full relative overflow-hidden rounded-xl py-4 text-base font-semibold border-2 ${
             isLoading 
-              ? 'bg-gray-700 cursor-not-allowed text-gray-400'
-              : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:shadow-lg hover:shadow-primary-600/20 active:shadow-sm transition-all'
+              ? 'bg-gray-700 cursor-not-allowed text-gray-400 border-gray-600'
+              : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:shadow-lg hover:shadow-primary-600/20 active:shadow-sm transition-all border-primary-500'
           }`}
         >
           {isLoading ? (

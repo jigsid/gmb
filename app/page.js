@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight } from 'react-icons/fa';
+import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight, FaCode, FaClipboard } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 // Components
@@ -222,13 +222,13 @@ export default function Home() {
       {!businessData ? (
         <>
           {/* 2025 Hero Section - Full Height Split Layout */}
-          <section className="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center">
+          <section className="min-h-[calc(100vh-100px)] flex flex-col md:flex-row items-center pt-2">
             {/* Left Side - Hero Content */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="w-full md:w-1/2 px-6 md:px-12 py-12 flex flex-col justify-center"
+              className="w-full md:w-1/2 px-6 md:px-12 py-6 flex flex-col justify-center"
             >
               <div className="inline-flex items-center px-3 py-1.5 mb-6 rounded-full bg-primary-900/30 border border-primary-700/40">
                 <span className="w-2 h-2 rounded-full bg-primary-500 mr-2"></span>
@@ -236,23 +236,14 @@ export default function Home() {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Compare & Outrank Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Business Competition</span>
+                Compare & Outrank Your <span className="text-blue-400">Business Competition</span>
               </h1>
               
               <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl">
                 Leverage advanced AI to analyze your Google Business profile, identify competitors, and get actionable insights to improve your online presence.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <a href="#gmb-form" className="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1">
-                  Get Started <FaArrowRight className="ml-2" />
-                </a>
-                <a href="#features" className="inline-flex items-center px-6 py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all">
-                  Explore Features
-                </a>
-              </div>
-              
-              <div className="flex items-center space-x-4 text-sm text-gray-400">
+              <div className="flex items-center space-x-4 text-sm text-gray-400 mb-6">
                 <div className="flex items-center">
                   <FaCheckCircle className="text-primary-500 mr-2" />
                   <span>No credit card required</span>
@@ -262,6 +253,21 @@ export default function Home() {
                   <span>100% free analysis</span>
                 </div>
               </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <a href="#gmb-form" className="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1">
+                  Get Started <FaArrowRight className="ml-2" />
+                </a>
+                <a href="#features" className="inline-flex items-center px-6 py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all">
+                  Explore Features
+                </a>
+                <button 
+                  onClick={() => document.getElementById('embed-code-modal').classList.remove('hidden')}
+                  className="inline-flex items-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all"
+                >
+                  <FaCode className="mr-2" /> Get Embed Code
+                </button>
+              </div>
             </motion.div>
             
             {/* Right Side - GMB Form */}
@@ -270,14 +276,14 @@ export default function Home() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full md:w-1/2 px-6 md:px-12 py-12 flex justify-center items-center"
+              className="w-full md:w-1/2 px-6 md:px-12 py-6 mt-[-30px] flex justify-center items-center"
             >
-              <div className="w-full max-w-md glass-card p-8 rounded-2xl border border-card-border shadow-2xl backdrop-blur-md bg-gray-900/70 relative overflow-hidden">
+              <div className="w-full max-w-md glass-card p-6 pt-4 rounded-2xl border border-card-border shadow-2xl backdrop-blur-md bg-gray-900/70 relative overflow-hidden">
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary-500/20 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-secondary-500/20 rounded-full blur-3xl"></div>
                 
                 <div className="relative">
-                  <h2 className="text-2xl font-bold text-white mb-6">Analyze Your Business</h2>
+                  <h2 className="text-2xl font-bold text-white mb-4">Analyze Your Business</h2>
                   <BusinessForm 
                     onSubmit={handleSubmit} 
                     isLoading={isLoading} 
@@ -463,6 +469,79 @@ export default function Home() {
           </div>
         </motion.div>
       )}
+      
+      {/* Embed Code Modal */}
+      <div id="embed-code-modal" className="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => document.getElementById('embed-code-modal').classList.add('hidden')}></div>
+        <div className="relative z-10 bg-gray-900 border border-gray-700 rounded-xl p-6 w-full max-w-2xl shadow-2xl">
+          <button 
+            onClick={() => document.getElementById('embed-code-modal').classList.add('hidden')}
+            className="absolute top-4 right-4 text-gray-400 hover:text-white"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <h3 className="text-2xl font-bold text-white mb-4">Embed Business Comparison Tool</h3>
+          <p className="text-gray-300 mb-6">Copy and paste this code to embed the Business Comparison Tool on your website:</p>
+          
+          <div className="relative">
+            <pre className="bg-gray-800 p-4 rounded-lg text-sm text-gray-300 overflow-x-auto mb-4">
+              {`<iframe 
+  src="${typeof window !== 'undefined' ? window.location.origin : ''}/embed" 
+  width="100%" 
+  height="600" 
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+  allowfullscreen
+></iframe>`}
+            </pre>
+            
+            <button 
+              onClick={() => {
+                const code = document.querySelector('#embed-code-modal pre').innerText;
+                navigator.clipboard.writeText(code);
+                document.getElementById('copy-confirmation').classList.remove('opacity-0');
+                setTimeout(() => {
+                  document.getElementById('copy-confirmation').classList.add('opacity-0');
+                }, 2000);
+              }}
+              className="absolute top-2 right-2 p-2 rounded-md bg-blue-900/50 text-blue-400 hover:bg-blue-800"
+            >
+              <FaClipboard />
+            </button>
+            
+            <span id="copy-confirmation" className="absolute right-12 top-3 text-green-400 transition-opacity opacity-0">
+              Copied!
+            </span>
+          </div>
+          
+          <div className="mt-6 space-y-4">
+            <h4 className="text-lg font-medium text-white">Customization Options</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="border border-gray-700 rounded-lg p-4">
+                <h5 className="font-medium text-white mb-2">Theme</h5>
+                <div className="flex gap-2">
+                  <button className="h-8 w-8 rounded-full bg-gray-900 border-2 border-blue-500"></button>
+                  <button className="h-8 w-8 rounded-full bg-white border border-gray-300"></button>
+                  <button className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 border border-transparent"></button>
+                </div>
+              </div>
+              
+              <div className="border border-gray-700 rounded-lg p-4">
+                <h5 className="font-medium text-white mb-2">Size</h5>
+                <select className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-gray-300">
+                  <option>Small (400px)</option>
+                  <option selected>Medium (600px)</option>
+                  <option>Large (800px)</option>
+                  <option>Full height</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
