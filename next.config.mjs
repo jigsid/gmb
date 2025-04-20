@@ -1,14 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable trace files that might cause permission issues
-  tracing: {
-    traceFn: () => null // Disable tracing completely
-  },
-  
   // Configure permissions and caching
   experimental: {
     optimizePackageImports: ['react-icons', 'framer-motion'],
-    serverActions: true
+    serverActions: {
+      allowedOrigins: ["localhost:3000"]
+    }
   },
   
   // Configure external images for Maps API

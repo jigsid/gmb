@@ -22,6 +22,13 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#0a0a0a",
+};
+
 export const metadata = {
   title: "Business Comparison Tool - Compare Your Business with Competitors",
   description: "AI-powered tool to analyze your business performance against competitors. Get insights on reviews, SEO, and recommendations for improvement.",
@@ -40,14 +47,6 @@ export const metadata = {
     description: "AI-powered business comparison and analytics",
     images: ['/og-image.jpg'],
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
-  themeColor: [
-    { color: "#0a0a0a" },
-  ],
 };
 
 export default function RootLayout({ children }) {
