@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight, FaCode, FaClipboard } from 'react-icons/fa';
+import { FaChartLine, FaBuilding, FaInfoCircle, FaCheckCircle, FaShieldAlt, FaRocket, FaStar, FaArrowRight, FaCode, FaClipboard, FaGlobe, FaLink, FaChartBar, FaLightbulb, FaBrain, FaComments } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 // Components
@@ -50,6 +50,7 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState('input');
   const [errorMessage, setErrorMessage] = useState('');
   const [activeGmbTab, setActiveGmbTab] = useState('overview');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSubmit = async (formData) => {
     setIsLoading(true);
@@ -322,6 +323,107 @@ export default function Home() {
             </div>
           </section>
           
+         
+          {/* Pricing Comparison - New */}
+          <section className="py-16 bg-gray-950 relative overflow-hidden">
+            <div className="absolute -bottom-80 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute -top-40 -left-20 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
+            
+            <div className="container mx-auto px-6 relative z-10">
+              <div className="flex flex-col items-center mb-12 text-center">
+                <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-secondary-900/30 border border-secondary-700/40">
+                  <span className="text-xs font-medium text-secondary-400">Free vs Premium</span>
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Choose Your Plan</h2>
+                <p className="text-gray-400 max-w-2xl">Compare our free and premium features to find the perfect solution for your business</p>
+              </div>
+              
+              <div className="max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Free Plan */}
+                  <div className="col-span-1">
+                    <div className="h-full rounded-2xl border border-gray-800 bg-gray-900/50 backdrop-blur-sm p-8 flex flex-col">
+                      <div className="mb-8">
+                        <h3 className="text-xl font-bold text-white mb-2">Free Plan</h3>
+                        <p className="text-gray-400">Basic features for small businesses</p>
+                        <div className="mt-4">
+                          <span className="text-3xl font-bold text-white">$0</span>
+                          <span className="text-gray-400">/month</span>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-3 mb-8 flex-grow">
+                        <PlanFeature included text="Basic business data" />
+                        <PlanFeature included text="Top 3 competitors" />
+                        <PlanFeature included text="Basic SEO metrics" />
+                        <PlanFeature included text="AI recommendations" />
+                        <PlanFeature included text="PDF report export" />
+                        <PlanFeature text="Historical data tracking" />
+                        <PlanFeature text="Advanced competitor insights" />
+                        <PlanFeature text="Keyword tracking" />
+                        <PlanFeature text="Email notifications" />
+                        <PlanFeature text="White-label reports" />
+                      </div>
+                      
+                      <a href="#gmb-form" className="inline-flex justify-center items-center px-6 py-3 rounded-lg border border-gray-600 text-white font-medium hover:bg-gray-800 transition-all w-full">
+                        Get Started
+                      </a>
+                    </div>
+                  </div>
+                  
+                  {/* Premium Plan */}
+                  <div className="col-span-1 lg:col-span-2">
+                    <div className="h-full rounded-2xl border border-primary-600 bg-gradient-to-b from-gray-900/80 to-gray-900/60 backdrop-blur-sm p-8 flex flex-col relative overflow-hidden">
+                      <div className="absolute top-0 right-0 bg-primary-600 text-white px-4 py-1 text-sm font-bold transform rotate-0 translate-x-2 -translate-y-0 rounded-bl-lg">
+                        RECOMMENDED
+                      </div>
+                      
+                      <div className="mb-8">
+                        <h3 className="text-xl font-bold text-white mb-2">Premium Plan</h3>
+                        <p className="text-gray-400">Advanced analytics and tracking for growing businesses</p>
+                        <div className="mt-4 flex items-baseline">
+                          <span className="text-3xl font-bold text-white">$29</span>
+                          <span className="text-gray-400">/month</span>
+                          <span className="ml-2 bg-green-900/30 text-green-400 text-xs px-2 py-1 rounded-full">Save 50% - Limited Time</span>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 mb-8 flex-grow">
+                        <PlanFeature included text="✓ Everything in Free plan" className="col-span-1 md:col-span-2 font-medium text-primary-300" />
+                        <PlanFeature included text="Unlimited competitors" />
+                        <PlanFeature included text="Full SEO analysis" />
+                        <PlanFeature included text="Backlink analysis" />
+                        <PlanFeature included text="Content gap analysis" />
+                        <PlanFeature included text="Keyword position tracking" />
+                        <PlanFeature included text="12 months historical data" />
+                        <PlanFeature included text="Weekly email reports" />
+                        <PlanFeature included text="Custom alerts" />
+                        <PlanFeature included text="White-label reports" />
+                        <PlanFeature included text="Priority support" />
+                        <PlanFeature included text="API access" />
+                      </div>
+                      
+                      <button className="inline-flex justify-center items-center px-6 py-3 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium hover:shadow-lg hover:shadow-primary-600/20 transition-all w-full">
+                        Start 14-Day Free Trial
+                      </button>
+                      <p className="text-xs text-center text-gray-400 mt-2">No credit card required</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-12 text-center">
+                  <p className="text-gray-400 mb-4">Need a custom plan for your enterprise?</p>
+                  <a href="#" className="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
+                    Contact us for enterprise solutions
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
           {/* Feature Section - kept from previous version but styled to match new design */}
           <section id="features" className="py-16 bg-gradient-to-b from-gray-900 to-gray-950">
             <div className="container mx-auto px-6">
@@ -351,67 +453,338 @@ export default function Home() {
                   description="Receive data-driven strategies to improve your online presence and outrank competitors."
                 />
               </div>
+              
+              {/* New Features Section - Advanced Features */}
+              <div className="mt-16">
+                <div className="flex flex-col items-center mb-12 text-center">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Advanced Analytics</h3>
+                  <p className="text-gray-400 max-w-2xl">Unlock deeper insights with our premium features</p>
+                </div>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <AdvancedFeatureCard 
+                    icon={<FaChartLine />}
+                    title="Trend Analysis"
+                    description="Track your business performance over time and identify patterns in customer engagement, reviews, and online visibility."
+                    features={[
+                      "Historical rating and review tracking",
+                      "Seasonal trend identification",
+                      "Growth prediction modeling"
+                    ]}
+                  />
+                  <AdvancedFeatureCard 
+                    icon={<FaGlobe />}
+                    title="SEO Performance Tracking"
+                    description="Monitor your website's search engine performance and identify optimization opportunities."
+                    features={[
+                      "Keyword ranking position tracking",
+                      "Backlink profile analysis",
+                      "Content gap identification"
+                    ]}
+                  />
+                </div>
+              </div>
             </div>
           </section>
+          
+          {/* How It Works Section - New */}
+          <section className="py-16 bg-gradient-to-b from-gray-950 to-gray-900">
+            <div className="container mx-auto px-6">
+              <div className="flex flex-col items-center mb-12 text-center">
+                <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-blue-900/30 border border-blue-700/40">
+                  <span className="text-xs font-medium text-blue-400">Simple Process</span>
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How It Works</h2>
+                <p className="text-gray-400 max-w-2xl">Get actionable business intelligence in just three simple steps</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <StepCard 
+                  number="1"
+                  title="Enter Your GMB URL"
+                  description="Simply paste your Google My Business profile URL to get started. No registration required."
+                  icon={<FaLink />}
+                />
+                <StepCard 
+                  number="2"
+                  title="Automated Analysis"
+                  description="Our system automatically analyzes your business data, finds competitors, and evaluates your online presence."
+                  icon={<FaChartBar />}
+                />
+                <StepCard 
+                  number="3"
+                  title="Get Actionable Insights"
+                  description="Review detailed analysis and AI-powered recommendations to improve your business visibility."
+                  icon={<FaLightbulb />}
+                />
+              </div>
+            </div>
+          </section>
+          
+          {/* CTA Section - New */}
+          <section className="py-20 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-900/30 to-secondary-900/30 z-0"></div>
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl"></div>
+            
+            <div className="container mx-auto px-6 relative z-10">
+              <div className="max-w-4xl mx-auto bg-gray-900/80 backdrop-blur-lg rounded-2xl p-8 border border-gray-800 shadow-2xl">
+                <div className="flex flex-col md:flex-row items-center">
+                  <div className="md:w-2/3 mb-8 md:mb-0 md:pr-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Grow Your Business?</h2>
+                    <p className="text-gray-300 mb-6">Get started with your free business analysis today and discover how to outrank your competition.</p>
+                    <div className="flex flex-wrap gap-4">
+                      <a href="#gmb-form" className="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1">
+                        Try It Now <FaArrowRight className="ml-2" />
+                      </a>
+                      <button 
+                        onClick={() => document.getElementById('embed-code-modal').classList.remove('hidden')}
+                        className="inline-flex items-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all"
+                      >
+                        <FaCode className="mr-2" /> Get Embed Code
+                      </button>
+                    </div>
+                  </div>
+                  <div className="md:w-1/3">
+                    <div className="rounded-xl bg-gray-800/50 border border-gray-700 p-5 shadow-lg">
+                      <div className="flex items-center mb-3">
+                        <div className="flex -space-x-2">
+                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">SJ</div>
+                          <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">MC</div>
+                          <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs">ER</div>
+                        </div>
+                        <div className="ml-3 text-sm text-gray-300">
+                          <span className="font-medium">250+</span> businesses analyzed today
+                        </div>
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        Join hundreds of businesses already using our comparison tool to improve their online presence.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          {/* FAQ Section - New */}
+          <section className="py-16 bg-gray-900">
+            <div className="container mx-auto px-6">
+              <div className="flex flex-col items-center mb-12 text-center">
+                <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-purple-900/30 border border-purple-700/40">
+                  <span className="text-xs font-medium text-purple-400">Questions & Answers</span>
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+                <p className="text-gray-400 max-w-2xl">Everything you need to know about our business comparison tool</p>
+              </div>
+              
+              <div className="max-w-3xl mx-auto">
+                <FaqItem 
+                  question="How do I find my Google Business Profile URL?" 
+                  answer="You can find your Google Business Profile URL by searching for your business on Google, clicking on your business in the search results or on Google Maps, and then copying the URL from your browser's address bar. It typically starts with 'https://www.google.com/maps/place/'."
+                />
+                
+                <FaqItem 
+                  question="Is this tool completely free to use?" 
+                  answer="Yes! Our basic business comparison tool is completely free to use with no hidden fees. We offer premium features for businesses that need more advanced analytics and detailed reports."
+                />
+                
+                <FaqItem 
+                  question="How accurate is the competitor analysis?" 
+                  answer="Our tool uses real-time data from Google and other trusted sources to provide accurate insights. For competitors, we identify businesses in your category and geographic area with similar services to ensure relevant comparisons."
+                />
+                
+                <FaqItem 
+                  question="Can I export the results and reports?" 
+                  answer="Yes, you can export your business comparison results as a PDF report. The report includes all the analytics, competitor comparison data, and recommended actions to improve your online presence."
+                />
+                
+                <FaqItem 
+                  question="How often should I run a comparison analysis?" 
+                  answer="We recommend running a comparison analysis quarterly to track your progress and stay updated on your competition. However, if you've made significant changes to your online presence, you might want to check more frequently."
+                />
+              </div>
+            </div>
+          </section>
+          
+          {/* Newsletter Section - New */}
+          <section className="py-16 bg-gradient-to-b from-gray-900 to-gray-950 relative overflow-hidden">
+            <div className="absolute -top-40 left-1/2 w-80 h-80 bg-primary-500/5 rounded-full blur-3xl"></div>
+            
+            <div className="container mx-auto px-6 relative z-10">
+              <div className="max-w-3xl mx-auto">
+                <div className="bg-gray-800/50 backdrop-blur-md rounded-2xl p-8 border border-gray-700 shadow-lg">
+                  <div className="flex flex-col md:flex-row items-center gap-8">
+                    <div className="md:w-2/3">
+                      <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-green-900/30 border border-green-700/40">
+                        <span className="text-xs font-medium text-green-400">Stay Updated</span>
+                      </div>
+                      
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Get Business Growth Tips</h3>
+                      <p className="text-gray-300 mb-4">Subscribe to receive marketing strategies, competitor insights, and GMB optimization tips directly to your inbox.</p>
+                    </div>
+                    
+                    <div className="md:w-1/3 w-full">
+                      <form className="space-y-3 w-full">
+                        <input 
+                          type="email" 
+                          placeholder="Your email address" 
+                          className="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          required
+                        />
+                        <button 
+                          type="submit" 
+                          className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium hover:shadow-lg hover:shadow-green-500/20 transition-all"
+                        >
+                          Subscribe
+                        </button>
+                        <p className="text-xs text-gray-400 mt-2">We respect your privacy. Unsubscribe at any time.</p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          
+          
+          {/* Footer - New */}
+          <footer className="bg-gray-950 border-t border-gray-800 pt-16 pb-8">
+            <div className="container mx-auto px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div>
+                  <h3 className="font-bold text-white text-lg mb-6">Business Comparison Tool</h3>
+                  <p className="text-gray-400 mb-6">The ultimate tool for analyzing and outranking your business competitors on Google.</p>
+                  <div className="flex space-x-4">
+                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                      </svg>
+                    </a>
+                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="font-bold text-white text-lg mb-6">Quick Links</h3>
+                  <ul className="space-y-4">
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="font-bold text-white text-lg mb-6">Resources</h3>
+                  <ul className="space-y-4">
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">GMB Optimization Guide</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Local SEO Checklist</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Review Management Tips</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Competitor Analysis</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="font-bold text-white text-lg mb-6">Legal</h3>
+                  <ul className="space-y-4">
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">GDPR Compliance</a></li>
+                    <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Data Processing</a></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p className="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Business Comparison Tool. All rights reserved.</p>
+                
+                <p className="text-gray-500 text-sm">
+                  Made with ❤️ for small businesses
+                </p>
+              </div>
+            </div>
+          </footer>
         </>
       ) : isLoading ? (
         <LoadingState message={getLoadingMessage(currentStep)} />
       ) : (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="container mx-auto px-4 py-8"
-        >
-          <div className="flex flex-wrap justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-4 md:mb-0">Business Intelligence</h1>
-            
-            <div className="flex space-x-2">
-              <button 
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeGmbTab === 'overview' 
-                    ? 'bg-primary-900/30 text-primary-500' 
-                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
-                }`}
-                onClick={() => setActiveGmbTab('overview')}
-              >
-                Overview
-              </button>
-              
-              <button 
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeGmbTab === 'analytics' 
-                    ? 'bg-primary-900/30 text-primary-500' 
-                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
-                }`}
-                onClick={() => setActiveGmbTab('analytics')}
-              >
-                Analytics
-              </button>
-              
-              <button 
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeGmbTab === 'competitors' 
-                    ? 'bg-primary-900/30 text-primary-500' 
-                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
-                }`}
-                onClick={() => setActiveGmbTab('competitors')}
-              >
-                Competitors
-              </button>
-              
-              <button 
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeGmbTab === 'insights' 
-                    ? 'bg-primary-900/30 text-primary-500' 
-                    : 'bg-neutral-800 text-foreground-secondary hover:bg-primary-900/20'
-                }`}
-                onClick={() => setActiveGmbTab('insights')}
-              >
-                AI Insights
-              </button>
+        <div className="min-h-screen flex flex-col md:flex-row bg-gray-950">
+          {/* Sidebar for Desktop */}
+          <div className="hidden md:flex flex-col w-64 bg-gray-900/80 backdrop-blur-md border-r border-gray-800 h-screen sticky top-0 overflow-y-auto py-6 px-4">
+            <div className="mb-8 px-2">
+              <h2 className="text-xl font-bold text-white mb-1 flex items-center">
+                <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-bold mr-2">
+                  {businessData.name.charAt(0)}
+                </span>
+                <span className="truncate">{businessData.name}</span>
+              </h2>
+              <div className="flex items-center text-gray-400 text-sm">
+                <FaStar className="text-amber-500 mr-1" />
+                <span>{businessData.rating} ({businessData.reviews} reviews)</span>
+              </div>
             </div>
             
-            <div className="flex space-x-2">
+            <nav className="space-y-1 flex-grow">
+              <SidebarNavItem 
+                icon={<FaChartLine />} 
+                text="Overview" 
+                isActive={activeGmbTab === 'overview'} 
+                onClick={() => setActiveGmbTab('overview')}
+              />
+              <SidebarNavItem 
+                icon={<FaChartBar />} 
+                text="Analytics" 
+                isActive={activeGmbTab === 'analytics'} 
+                onClick={() => setActiveGmbTab('analytics')}
+              />
+              <SidebarNavItem 
+                icon={<FaBuilding />} 
+                text="Competitors" 
+                isActive={activeGmbTab === 'competitors'} 
+                onClick={() => setActiveGmbTab('competitors')}
+              />
+              <SidebarNavItem 
+                icon={<FaBrain />} 
+                text="AI Insights" 
+                isActive={activeGmbTab === 'insights'} 
+                onClick={() => setActiveGmbTab('insights')}
+              />
+              <SidebarNavItem 
+                icon={<FaGlobe />} 
+                text="SEO Details" 
+                isActive={activeGmbTab === 'seo'} 
+                onClick={() => setActiveGmbTab('seo')}
+              />
+              <SidebarNavItem 
+                icon={<FaComments />} 
+                text="AI Chatbot" 
+                isActive={activeGmbTab === 'chatbot'} 
+                onClick={() => setActiveGmbTab('chatbot')}
+              />
+            </nav>
+            
+            <div className="border-t border-gray-800 pt-4 mt-4 space-y-2">
               <GmbDataExporter businessData={businessData} />
               <PdfGenerator 
                 businessData={businessData}
@@ -419,55 +792,237 @@ export default function Home() {
                 seoData={seoData}
                 aiInsights={aiInsights}
               />
+              <button
+                onClick={resetForm}
+                className="flex w-full items-center justify-center px-4 py-2 border border-gray-700 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors"
+              >
+                <FaInfoCircle className="mr-2" />
+                Try Another Business
+              </button>
             </div>
           </div>
           
-          <div className="mb-8">
-            {activeGmbTab === 'overview' && (
-              <GmbDataDashboard businessData={businessData} seoData={seoData} />
-            )}
+          {/* Mobile Header/Menu */}
+          <div className="md:hidden fixed top-0 inset-x-0 z-30 bg-gray-900/90 backdrop-blur-md border-b border-gray-800 p-4">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <span className="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-bold mr-2">
+                  {businessData.name.charAt(0)}
+                </span>
+                <div>
+                  <h2 className="text-base font-bold text-white truncate max-w-[180px]">{businessData.name}</h2>
+                  <div className="flex items-center text-gray-400 text-xs">
+                    <FaStar className="text-amber-500 mr-1" />
+                    <span>{businessData.rating} ({businessData.reviews})</span>
+                  </div>
+                </div>
+              </div>
+              
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg bg-gray-800 text-gray-300"
+              >
+                {mobileMenuOpen ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
             
-            {activeGmbTab === 'analytics' && (
-              <GmbAnalyticsDashboard businessData={businessData} seoData={seoData} competitors={competitors} />
-            )}
-            
-            {activeGmbTab === 'competitors' && (
-              <CompetitorTable 
-                businessData={businessData} 
-                competitors={competitors} 
-                seoData={seoData} 
-              />
-            )}
-            
-            {activeGmbTab === 'insights' && (
-              <AiInsights insights={aiInsights} />
+            {/* Mobile Navigation Menu */}
+            {mobileMenuOpen && (
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full left-0 right-0 bg-gray-900 border-b border-gray-800 shadow-lg"
+              >
+                <nav className="flex flex-col py-2">
+                  <MobileNavItem 
+                    icon={<FaChartLine />} 
+                    text="Overview" 
+                    isActive={activeGmbTab === 'overview'} 
+                    onClick={() => {
+                      setActiveGmbTab('overview');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                  <MobileNavItem 
+                    icon={<FaChartBar />} 
+                    text="Analytics" 
+                    isActive={activeGmbTab === 'analytics'} 
+                    onClick={() => {
+                      setActiveGmbTab('analytics');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                  <MobileNavItem 
+                    icon={<FaBuilding />} 
+                    text="Competitors" 
+                    isActive={activeGmbTab === 'competitors'} 
+                    onClick={() => {
+                      setActiveGmbTab('competitors');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                  <MobileNavItem 
+                    icon={<FaBrain />} 
+                    text="AI Insights" 
+                    isActive={activeGmbTab === 'insights'} 
+                    onClick={() => {
+                      setActiveGmbTab('insights');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                  <MobileNavItem 
+                    icon={<FaGlobe />} 
+                    text="SEO Details" 
+                    isActive={activeGmbTab === 'seo'} 
+                    onClick={() => {
+                      setActiveGmbTab('seo');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                  <MobileNavItem 
+                    icon={<FaComments />} 
+                    text="AI Chatbot" 
+                    isActive={activeGmbTab === 'chatbot'} 
+                    onClick={() => {
+                      setActiveGmbTab('chatbot');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                </nav>
+                
+                <div className="flex p-2 border-t border-gray-800 gap-2">
+                  <GmbDataExporter businessData={businessData} className="flex-1" />
+                  <PdfGenerator 
+                    businessData={businessData}
+                    competitors={competitors}
+                    seoData={seoData}
+                    aiInsights={aiInsights}
+                    className="flex-1"
+                  />
+                </div>
+              </motion.div>
             )}
           </div>
           
-          {/* SEO Detail Card & Chatbot remain outside of the tab system */}
-          {seoData && (
-            <SeoDetailCard seoData={seoData} businessName={businessData.name} />
-          )}
-          
-          <div className="mt-8">
-            <AiChatbot 
-              businessData={businessData}
-              competitors={competitors}
-              seoData={seoData}
-              aiInsights={aiInsights}
-            />
+          {/* Main Content Area */}
+          <div className="flex-1 md:pt-0 pt-20 pb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6">
+              {/* Page Header */}
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+                <div className="mb-4 md:mb-0">
+                  <h1 className="text-2xl font-bold text-white">
+                    {activeGmbTab === 'overview' && 'Business Overview'}
+                    {activeGmbTab === 'analytics' && 'Performance Analytics'}
+                    {activeGmbTab === 'competitors' && 'Competitor Analysis'}
+                    {activeGmbTab === 'insights' && 'AI Growth Insights'}
+                    {activeGmbTab === 'seo' && 'SEO Analysis'}
+                    {activeGmbTab === 'chatbot' && 'AI Assistant'}
+                  </h1>
+                  <p className="text-gray-400 mt-1">
+                    {activeGmbTab === 'overview' && 'Key metrics and business information'}
+                    {activeGmbTab === 'analytics' && 'Performance trends and growth metrics'}
+                    {activeGmbTab === 'competitors' && `Comparing with ${competitors?.length || 0} local competitors`}
+                    {activeGmbTab === 'insights' && 'AI-powered recommendations for growth'}
+                    {activeGmbTab === 'seo' && 'Website SEO performance metrics'}
+                    {activeGmbTab === 'chatbot' && 'Get answers about your business data'}
+                  </p>
+                </div>
+                
+                {/* Tab Navigation (Tablet/Mobile) */}
+                <div className="md:hidden overflow-x-auto pb-2 -mx-4 px-4">
+                  <div className="flex space-x-2 min-w-max">
+                    <TabButton 
+                      text="Overview" 
+                      isActive={activeGmbTab === 'overview'} 
+                      onClick={() => setActiveGmbTab('overview')}
+                    />
+                    <TabButton 
+                      text="Analytics" 
+                      isActive={activeGmbTab === 'analytics'} 
+                      onClick={() => setActiveGmbTab('analytics')}
+                    />
+                    <TabButton 
+                      text="Competitors" 
+                      isActive={activeGmbTab === 'competitors'} 
+                      onClick={() => setActiveGmbTab('competitors')}
+                    />
+                    <TabButton 
+                      text="AI Insights" 
+                      isActive={activeGmbTab === 'insights'} 
+                      onClick={() => setActiveGmbTab('insights')}
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Main Content */}
+              <div className="mb-8">
+                {activeGmbTab === 'overview' && (
+                  <GmbDataDashboard businessData={businessData} seoData={seoData} />
+                )}
+                
+                {activeGmbTab === 'analytics' && (
+                  <GmbAnalyticsDashboard businessData={businessData} seoData={seoData} competitors={competitors} />
+                )}
+                
+                {activeGmbTab === 'competitors' && (
+                  <CompetitorTable 
+                    businessData={businessData} 
+                    competitors={competitors} 
+                    seoData={seoData} 
+                  />
+                )}
+                
+                {activeGmbTab === 'insights' && (
+                  <AiInsights insights={aiInsights} />
+                )}
+                
+                {activeGmbTab === 'seo' && seoData && (
+                  <SeoDetailCard seoData={seoData} businessName={businessData.name} />
+                )}
+                
+                {activeGmbTab === 'chatbot' && (
+                  <AiChatbot 
+                    businessData={businessData}
+                    competitors={competitors}
+                    seoData={seoData}
+                    aiInsights={aiInsights}
+                  />
+                )}
+              </div>
+              
+              {/* Footer Actions (Mobile Only) */}
+              <div className="fixed bottom-0 inset-x-0 md:hidden bg-gray-900/90 backdrop-blur-md border-t border-gray-800 p-3 flex space-x-2">
+                <button
+                  onClick={resetForm}
+                  className="flex-1 flex items-center justify-center px-3 py-2 bg-gray-800 rounded-lg text-gray-300 text-sm"
+                >
+                  <FaInfoCircle className="mr-1.5" size={14} />
+                  Try Another
+                </button>
+                <GmbDataExporter 
+                  businessData={businessData} 
+                  className="flex-1 text-sm py-2 px-3 justify-center"
+                />
+                <PdfGenerator 
+                  businessData={businessData}
+                  competitors={competitors}
+                  seoData={seoData}
+                  aiInsights={aiInsights}
+                  className="flex-1 text-sm py-2 px-3 justify-center"
+                />
+              </div>
+            </div>
           </div>
-          
-          <div className="mt-8 flex justify-between">
-            <button
-              onClick={resetForm}
-              className="flex items-center justify-center px-4 py-2 border border-gray-700 rounded-md text-gray-300 hover:bg-gray-800"
-            >
-              <FaInfoCircle className="mr-2" />
-              Try Another Business
-            </button>
-          </div>
-        </motion.div>
+        </div>
       )}
       
       {/* Embed Code Modal */}
@@ -582,5 +1137,170 @@ function TrustCard({ icon, title, description }) {
       <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
       <p className="text-gray-400">{description}</p>
     </motion.div>
+  );
+}
+
+function TestimonialCard({ quote, author, position, company, rating }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -5 }}
+      className="p-6 rounded-xl border border-gray-800 bg-gray-800/30 backdrop-blur-sm flex flex-col"
+    >
+      <div className="mb-4 flex">
+        {[...Array(5)].map((_, i) => (
+          <FaStar key={i} className={i < rating ? "text-yellow-500" : "text-gray-600"} />
+        ))}
+      </div>
+      <p className="text-gray-300 italic mb-6">"{quote}"</p>
+      <div className="mt-auto">
+        <p className="font-medium text-white">{author}</p>
+        <p className="text-sm text-gray-400">{position}, {company}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function AdvancedFeatureCard({ icon, title, description, features }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -5 }}
+      className="p-8 rounded-xl border border-gray-800 bg-gray-800/20 backdrop-blur-sm transition-all relative overflow-hidden group"
+    >
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/5 to-secondary-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
+      <div className="flex items-center mb-6">
+        <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 mr-4 group-hover:shadow-lg group-hover:shadow-primary-500/10 transition-all z-10 relative">
+          <span className="text-primary-400 group-hover:text-primary-300 transition-colors">
+            {icon}
+          </span>
+        </div>
+        <h3 className="text-xl font-semibold text-white relative z-10">{title}</h3>
+      </div>
+      
+      <p className="text-gray-400 group-hover:text-gray-300 transition-colors relative z-10 mb-6">{description}</p>
+      
+      <div className="space-y-2">
+        {features.map((feature, index) => (
+          <div key={index} className="flex items-start">
+            <FaCheckCircle className="text-primary-500 mt-1 mr-2 flex-shrink-0" size={14} />
+            <span className="text-gray-300">{feature}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function StepCard({ number, title, description, icon }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -5 }}
+      className="p-8 rounded-xl border border-gray-800 bg-gray-800/20 backdrop-blur-sm transition-all relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 w-16 h-16 flex items-center justify-center text-4xl font-bold text-gray-700/30">
+        {number}
+      </div>
+      
+      <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 mb-6">
+        <span className="text-blue-400">
+          {icon}
+        </span>
+      </div>
+      
+      <h3 className="text-xl font-semibold mb-3 text-white">{title}</h3>
+      <p className="text-gray-400">{description}</p>
+    </motion.div>
+  );
+}
+
+function FaqItem({ question, answer }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div className="mb-4 border border-gray-800 rounded-xl overflow-hidden">
+      <button 
+        className="w-full p-4 flex justify-between items-center bg-gray-800/50 hover:bg-gray-800/70 transition-colors text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <h3 className="font-medium text-white">{question}</h3>
+        <span className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </button>
+      
+      <div 
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 p-4' : 'max-h-0'}`}
+      >
+        <p className="text-gray-300">{answer}</p>
+      </div>
+    </div>
+  );
+}
+
+function PlanFeature({ text, included, className }) {
+  return (
+    <div className={`flex items-start ${className || ''}`}>
+      {included ? (
+        <FaCheckCircle className="text-primary-500 mt-1 mr-2 flex-shrink-0" size={14} />
+      ) : (
+        <svg className="h-4 w-4 text-gray-500 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      )}
+      <span className={included ? "text-gray-300" : "text-gray-500"}>{text}</span>
+    </div>
+  );
+}
+
+// New Navigation Components
+function SidebarNavItem({ icon, text, isActive, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors ${
+        isActive 
+          ? 'bg-primary-900/30 text-primary-500' 
+          : 'text-gray-400 hover:text-white hover:bg-gray-800/70'
+      }`}
+    >
+      <span className="flex-shrink-0">{icon}</span>
+      <span className="font-medium">{text}</span>
+      {isActive && (
+        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+      )}
+    </button>
+  );
+}
+
+function MobileNavItem({ icon, text, isActive, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center space-x-3 px-4 py-3 transition-colors ${
+        isActive 
+          ? 'bg-primary-900/30 text-primary-500' 
+          : 'text-gray-400 hover:text-white hover:bg-gray-800/70'
+      }`}
+    >
+      <span className="flex-shrink-0">{icon}</span>
+      <span className="font-medium">{text}</span>
+    </button>
+  );
+}
+
+function TabButton({ text, isActive, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+        isActive 
+          ? 'bg-primary-900/30 text-primary-500' 
+          : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+      }`}
+    >
+      {text}
+    </button>
   );
 }
