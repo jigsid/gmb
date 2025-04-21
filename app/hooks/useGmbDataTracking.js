@@ -109,13 +109,36 @@ export default function useGmbDataTracking(businessData) {
     // Helper to get review counts for charts
     getReviewCounts: () => {
       if (!historicalData) return [];
-      return historicalData.map(item => item.reviews);
+      
+      const counts = historicalData.map(item => item.reviews);
+      const maxCount = Math.max(...counts);
+      
+      // Return formatted data with height percentage and label
+      return historicalData.map((item, i) => {
+        const [year, month] = item.date.split('-');
+        const date = new Date(parseInt(year), parseInt(month) - 1);
+        return {
+          value: item.reviews,
+          height: (item.reviews / maxCount) * 100,
+          label: date.toLocaleString('default', { month: 'short' })
+        };
+      });
     },
     
     // Helper to get rating values for charts
     getRatingValues: () => {
       if (!historicalData) return [];
-      return historicalData.map(item => item.rating);
+      
+      // For ratings, we want the height to be relative to the 5-star scale
+      return historicalData.map((item, i) => {
+        const [year, month] = item.date.split('-');
+        const date = new Date(parseInt(year), parseInt(month) - 1);
+        return {
+          value: item.rating,
+          height: (item.rating / 5) * 100, // Calculate height as percentage of 5 stars
+          label: date.toLocaleString('default', { month: 'short' })
+        };
+      });
     }
   };
 } 

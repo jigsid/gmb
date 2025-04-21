@@ -9,42 +9,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 2025 trend: Neo-brutalism with vibrant accents
+        // Modern Professional SaaS Color Palette
         primary: {
-          50: '#e6f9f1',
-          100: '#ccf3e2',
-          200: '#99e7c5',
-          300: '#66dba8',
-          400: '#33cf8b',
-          500: '#10b981', // Base primary
-          600: '#0da46f',
-          700: '#0a8f5e',
-          800: '#087a4d',
-          900: '#05653c',
+          50: '#eef5ff',
+          100: '#d9eaff',
+          200: '#b5d4ff',
+          300: '#7ab4ff',
+          400: '#3d8eff',
+          500: '#1a6efa', // Primary blue
+          600: '#0a52ef',
+          700: '#0c41d6',
+          800: '#1236ad',
+          900: '#142e89',
         },
         secondary: {
-          50: '#e7f5ff',
-          100: '#cfebff',
-          200: '#9fd7ff',
-          300: '#6fc3ff',
-          400: '#3fafff',
-          500: '#0f9bff', // Base secondary
-          600: '#0d8ce6',
-          700: '#0b7bcc',
-          800: '#096ab3',
-          900: '#075999',
+          50: '#f1f1fe',
+          100: '#e4e4fd',
+          200: '#cdcdfb',
+          300: '#b1b2f8',
+          400: '#9594f4',
+          500: '#6366f1', // Indigo secondary
+          600: '#4d43e9',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
         },
         accent: {
-          50: '#fff0f7',
-          100: '#ffe1ef',
-          200: '#ffc2df',
-          300: '#ffa4d0',
-          400: '#ff85c0',
-          500: '#ff67b0', // Vibrant accent
-          600: '#e65d9e',
-          700: '#cc538c',
-          800: '#b3487a',
-          900: '#993e68',
+          50: '#fdeef6',
+          100: '#fcdeed',
+          200: '#fac0e0',
+          300: '#f897cd',
+          400: '#f471b5',
+          500: '#ec4899', // Pink accent
+          600: '#d61f80',
+          700: '#be185d',
+          800: '#9d174d',
+          900: '#831843',
         },
         neutral: {
           50: '#f9fafb',
@@ -55,9 +55,9 @@ module.exports = {
           500: '#6b7280',
           600: '#4b5563',
           700: '#374151',
-          800: '#1f2937',
-          900: '#111827',
-          950: '#0a0a0a',
+          800: '#1a2236', // SaaS dark background
+          900: '#0f1729', // Deeper SaaS background
+          950: '#0a1120', // Almost black with a hint of blue
         },
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -76,10 +76,12 @@ module.exports = {
       boxShadow: {
         // 2025 trend: Dimensional shadows with depth
         'neo': '5px 5px 0px 0px rgba(0,0,0,0.9)',
-        'glass': '0 8px 32px rgba(0, 0, 0, 0.05)',
-        'float': '0 20px 40px rgba(0, 0, 0, 0.08)',
-        'glow': '0 0 20px rgba(16, 185, 129, 0.6)',
-        'inner-glow': 'inset 0 0 15px rgba(16, 185, 129, 0.3)',
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        'float': '0 20px 40px rgba(0, 0, 0, 0.12)',
+        'glow': '0 0 20px rgba(26, 110, 250, 0.6)',
+        'inner-glow': 'inset 0 0 15px rgba(26, 110, 250, 0.35)',
+        'card': '0 8px 24px rgba(0, 0, 0, 0.16)',
+        'dropdown': '0 8px 16px rgba(0, 0, 0, 0.25)',
       },
       animation: {
         // 2025 trend: Micro-interactions
@@ -123,15 +125,19 @@ module.exports = {
             },
             h1: {
               fontWeight: '800',
+              letterSpacing: '-0.02em',
             },
             h2: {
               fontWeight: '700',
+              letterSpacing: '-0.015em',
             },
             h3: {
               fontWeight: '600',
+              letterSpacing: '-0.01em',
             },
             code: {
               fontWeight: '500',
+              borderRadius: '0.25rem',
             },
           },
         },

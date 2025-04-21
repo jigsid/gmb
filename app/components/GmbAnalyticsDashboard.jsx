@@ -44,8 +44,8 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
       className="w-full glass-card p-6 rounded-2xl border border-card-border shadow-float backdrop-blur-sm"
     >
       <div className="flex items-center mb-6">
-        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-900/30 mr-3">
-          <FaChartLine className="text-blue-500" />
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-900/30 mr-3">
+          <FaChartLine className="text-primary-500" />
         </div>
         <div>
           <h2 className="text-xl font-bold text-foreground">Performance Analytics</h2>
@@ -55,7 +55,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
       
       {/* Main metrics grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-        <div className="bg-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-background-secondary rounded-xl p-5 shadow-card border border-neutral-700/20">
           <div className="flex justify-between mb-4">
             <div>
               <h3 className="text-foreground-secondary text-sm font-medium">Rating Comparison</h3>
@@ -64,7 +64,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
                 <span className="text-sm font-normal text-foreground-tertiary ml-1">/ 5</span>
                 
                 {changeMetrics && (
-                  <span className={`text-sm ml-2 ${changeMetrics.isRatingImproved ? 'text-green-500' : 'text-red-500'}`}>
+                  <span className={`text-sm ml-2 ${changeMetrics.isRatingImproved ? 'text-success-500' : 'text-danger-500'}`}>
                     {changeMetrics.ratingChange > 0 ? '+' : ''}
                     {changeMetrics.ratingChange.toFixed(1)}
                     {changeMetrics.isRatingImproved ? <FaArrowUp className="inline ml-1 mb-1" size={10} /> : <FaArrowDown className="inline ml-1 mb-1" size={10} />}
@@ -78,14 +78,14 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
           </div>
           
           <div className="flex items-center">
-            <div className="w-full bg-gray-700 rounded-full h-2.5">
+            <div className="w-full bg-background-tertiary rounded-full h-2.5">
               <div className="bg-amber-500 h-2.5 rounded-full" style={{ width: `${(businessData.rating / 5) * 100}%` }}></div>
             </div>
           </div>
           
           <div className="flex justify-between mt-3 text-sm">
             <div className="text-foreground-tertiary">Competitors Avg: {avgCompetitorRating.toFixed(1)}</div>
-            <div className={ratingDifference >= 0 ? "text-green-500" : "text-red-500"}>
+            <div className={ratingDifference >= 0 ? "text-success-500" : "text-danger-500"}>
               {ratingDifference > 0 ? "+" : ""}{ratingDifference.toFixed(1)}
             </div>
           </div>
@@ -98,11 +98,11 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
                 <span>Past 6 months</span>
               </div>
               <div className="flex items-end h-6 space-x-1">
-                {getRatingValues().map((value, i) => (
+                {getRatingValues().map((item, i) => (
                   <div 
                     key={i} 
                     className={`w-full ${i === getRatingValues().length - 1 ? 'bg-amber-500' : 'bg-amber-700/50'} rounded-sm`}
-                    style={{ height: `${(value / 5) * 100}%` }}
+                    style={{ height: `${item.height}%` }}
                   ></div>
                 ))}
               </div>
@@ -110,7 +110,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
           )}
         </div>
         
-        <div className="bg-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-background-secondary rounded-xl p-5 shadow-card border border-neutral-700/20">
           <div className="flex justify-between mb-4">
             <div>
               <h3 className="text-foreground-secondary text-sm font-medium">Review Volume</h3>
@@ -118,7 +118,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
                 {businessData.reviews.toLocaleString()}
                 
                 {changeMetrics && (
-                  <span className={`text-sm ml-2 ${changeMetrics.isReviewsImproved ? 'text-green-500' : 'text-red-500'}`}>
+                  <span className={`text-sm ml-2 ${changeMetrics.isReviewsImproved ? 'text-success-500' : 'text-danger-500'}`}>
                     {changeMetrics.reviewsChange > 0 ? '+' : ''}
                     {changeMetrics.reviewsChange}
                     {changeMetrics.isReviewsImproved ? <FaArrowUp className="inline ml-1 mb-1" size={10} /> : <FaArrowDown className="inline ml-1 mb-1" size={10} />}
@@ -132,7 +132,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
           </div>
           
           <div className="flex items-center">
-            <div className="w-full bg-gray-700 rounded-full h-2.5">
+            <div className="w-full bg-background-tertiary rounded-full h-2.5">
               <div className="bg-primary-500 h-2.5 rounded-full" style={{ 
                 width: `${Math.min((businessData.reviews / (avgCompetitorReviews * 2 || 100)) * 100, 100)}%` 
               }}></div>
@@ -141,7 +141,7 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
           
           <div className="flex justify-between mt-3 text-sm">
             <div className="text-foreground-tertiary">Competitors Avg: {Math.round(avgCompetitorReviews)}</div>
-            <div className={reviewsDifference >= 0 ? "text-green-500" : "text-red-500"}>
+            <div className={reviewsDifference >= 0 ? "text-success-500" : "text-danger-500"}>
               {reviewsDifference > 0 ? "+" : ""}{reviewsDifference.toFixed(0)}
             </div>
           </div>
@@ -154,22 +154,19 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
                 <span>Past 6 months</span>
               </div>
               <div className="flex items-end h-6 space-x-1">
-                {getReviewCounts().map((count, i) => {
-                  const maxCount = Math.max(...getReviewCounts());
-                  return (
-                    <div 
-                      key={i} 
-                      className={`w-full ${i === getReviewCounts().length - 1 ? 'bg-primary-500' : 'bg-primary-700/50'} rounded-sm`}
-                      style={{ height: `${(count / maxCount) * 100}%` }}
-                    ></div>
-                  );
-                })}
+                {getReviewCounts().map((item, i) => (
+                  <div 
+                    key={i} 
+                    className={`w-full ${i === getReviewCounts().length - 1 ? 'bg-primary-500' : 'bg-primary-700/50'} rounded-sm`}
+                    style={{ height: `${item.height}%` }}
+                  ></div>
+                ))}
               </div>
             </div>
           )}
         </div>
         
-        <div className="bg-neutral-800 rounded-lg p-5 shadow-sm">
+        <div className="bg-background-secondary rounded-xl p-5 shadow-card border border-neutral-700/20">
           <div className="flex justify-between mb-4">
             <div>
               <h3 className="text-foreground-secondary text-sm font-medium">Market Position</h3>
@@ -177,20 +174,20 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
                 {Math.round(marketPositionPercentage)}%
               </p>
             </div>
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-900/30 flex items-center justify-center">
-              <FaMapMarkerAlt className="text-green-500" />
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-success-900/30 flex items-center justify-center">
+              <FaMapMarkerAlt className="text-success-500" />
             </div>
           </div>
           
           <div className="flex items-center">
-            <div className="w-full bg-gray-700 rounded-full h-2.5">
-              <div className="bg-green-500 h-2.5 rounded-full" style={{ width: `${marketPositionPercentage}%` }}></div>
+            <div className="w-full bg-background-tertiary rounded-full h-2.5">
+              <div className="bg-success-500 h-2.5 rounded-full" style={{ width: `${marketPositionPercentage}%` }}></div>
             </div>
           </div>
           
           <div className="flex justify-between mt-3 text-sm">
             <div className="text-foreground-tertiary">Based on rating & reviews</div>
-            <div className="text-green-500">
+            <div className="text-success-500">
               {marketPositionPercentage >= 75 ? "Leading" : 
                marketPositionPercentage >= 50 ? "Strong" : 
                marketPositionPercentage >= 25 ? "Average" : "Needs work"}
@@ -198,16 +195,16 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
           </div>
           
           {/* Month-over-month growth */}
-          <div className="mt-4 pt-4 border-t border-neutral-700">
+          <div className="mt-4 pt-4 border-t border-neutral-700/30">
             <div className="text-xs text-foreground-tertiary mb-2">Month-over-Month Growth</div>
             <div className="flex items-center">
-              <div className={`text-xl font-bold ${getGrowthRate() >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+              <div className={`text-xl font-bold ${getGrowthRate() >= 0 ? 'text-success-500' : 'text-danger-500'}`}>
                 {getGrowthRate() > 0 ? '+' : ''}{getGrowthRate()}%
               </div>
-              <div className={`ml-2 p-1 rounded-full ${getGrowthRate() >= 0 ? 'bg-green-900/30' : 'bg-red-900/30'}`}>
+              <div className={`ml-2 p-1 rounded-full ${getGrowthRate() >= 0 ? 'bg-success-500/20' : 'bg-danger-500/20'}`}>
                 {getGrowthRate() >= 0 ? 
-                  <FaArrowUp className="text-green-500" size={10} /> : 
-                  <FaArrowDown className="text-red-500" size={10} />
+                  <FaArrowUp className="text-success-500" size={10} /> : 
+                  <FaArrowDown className="text-danger-500" size={10} />
                 }
               </div>
             </div>
@@ -217,45 +214,50 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
       
       {/* Historical data visualization */}
       {!isLoading && historicalData && (
-        <div className="bg-neutral-800 rounded-lg p-5 shadow-sm mb-6">
-          <h3 className="text-lg font-medium text-foreground mb-4">Performance Trends</h3>
+        <div className="bg-background-secondary rounded-xl p-5 shadow-card mb-6 border border-neutral-700/20">
+          <h3 className="text-lg font-semibold text-foreground mb-5">Performance Trends</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h4 className="text-sm font-medium text-foreground-secondary mb-2">Rating History</h4>
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <div className="h-40 flex items-end space-x-2">
-                  {getRatingValues().map((value, i) => (
+              <h4 className="text-sm font-medium text-foreground-secondary mb-3">Rating History</h4>
+              <div className="bg-background-tertiary p-4 rounded-lg">
+                <div className="h-48 flex items-end space-x-1">
+                  {getRatingValues().map((item, i) => (
                     <div key={i} className="flex-1 flex flex-col items-center">
-                      <div className="w-full flex justify-center mb-1">
-                        <span className="text-xs text-foreground-tertiary">{value.label}</span>
-                      </div>
                       <div 
-                        className={`w-full ${i === getRatingValues().length - 1 ? 'bg-amber-500' : 'bg-amber-700/50'} rounded-t-sm`} 
-                        style={{ height: `${value.height}%` }}
-                      ></div>
+                        className={`w-full relative group ${i === getRatingValues().length - 1 ? 'bg-gradient-to-t from-amber-500 to-amber-400' : 'bg-gradient-to-t from-amber-700/60 to-amber-600/60'} rounded-t-sm`} 
+                        style={{ height: `${item.height}%` }}
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-amber-500 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                          {item.value.toFixed(1)}★
+                        </div>
+                      </div>
+                      <div className="w-full flex justify-center mt-2">
+                        <span className="text-xs text-foreground-tertiary">{item.label}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-foreground-secondary mb-2">Review Growth</h4>
-              <div className="bg-gray-700 p-4 rounded-lg">
-                <div className="h-40 flex items-end space-x-2">
-                  {getReviewCounts().map((value, i) => {
-                    const maxCount = Math.max(...getReviewCounts());
-                    return (
-                      <div key={i} className="flex-1 flex flex-col items-center">
-                        <div className="w-full flex justify-center mb-1">
-                          <span className="text-xs text-foreground-tertiary">{value.label}</span>
+              <h4 className="text-sm font-medium text-foreground-secondary mb-3">Review Growth</h4>
+              <div className="bg-background-tertiary p-4 rounded-lg">
+                <div className="h-48 flex items-end space-x-1">
+                  {getReviewCounts().map((item, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center">
+                      <div 
+                        className={`w-full relative group ${i === getReviewCounts().length - 1 ? 'bg-gradient-to-t from-primary-500 to-primary-400' : 'bg-gradient-to-t from-primary-700/60 to-primary-600/60'} rounded-t-sm`} 
+                        style={{ height: `${item.height}%` }}
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-primary-500 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                          {item.value}
                         </div>
-                        <div 
-                          className={`w-full ${i === getReviewCounts().length - 1 ? 'bg-primary-500' : 'bg-primary-700/50'} rounded-t-sm`} 
-                          style={{ height: `${value.height}%` }}
-                        ></div>
                       </div>
-                    );
-                  })}
+                      <div className="w-full flex justify-center mt-2">
+                        <span className="text-xs text-foreground-tertiary">{item.label}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -264,10 +266,10 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
       )}
       
       {/* Key performance indicators */}
-      <div className="bg-neutral-800 rounded-lg p-5 mb-6">
-        <h3 className="text-lg font-medium text-foreground mb-4">Key Performance Indicators</h3>
+      <div className="bg-background-secondary rounded-xl p-5 mb-6 shadow-card border border-neutral-700/20">
+        <h3 className="text-lg font-semibold text-foreground mb-5">Key Performance Indicators</h3>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           <KpiCard 
             title="Review Growth"
             value={`${getGrowthRate() > 0 ? '+' : ''}${getGrowthRate()}%`}
@@ -304,9 +306,9 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
       </div>
       
       {/* Recommendations */}
-      <div className="bg-neutral-800 rounded-lg p-5">
-        <h3 className="text-lg font-medium text-foreground mb-4">Quick Recommendations</h3>
-        <ul className="space-y-2">
+      <div className="bg-background-secondary rounded-xl p-5 shadow-card border border-neutral-700/20">
+        <h3 className="text-lg font-semibold text-foreground mb-5">Quick Recommendations</h3>
+        <ul className="space-y-4">
           {businessData.reviews < 10 && (
             <RecommendationItem>
               Encourage customers to leave reviews to improve visibility
@@ -347,13 +349,13 @@ export default function GmbAnalyticsDashboard({ businessData, seoData, competito
 }
 
 function KpiCard({ title, value, description, isPositive, isNegative, isNeutral }) {
-  let colorClass = "text-neutral-500";
-  if (isPositive) colorClass = "text-green-500";
-  if (isNegative) colorClass = "text-red-500";
-  if (isNeutral) colorClass = "text-blue-500";
+  let colorClass = "text-foreground";
+  if (isPositive) colorClass = "text-success-500";
+  if (isNegative) colorClass = "text-danger-500";
+  if (isNeutral) colorClass = "text-primary-500";
   
   return (
-    <div className="bg-neutral-800 p-3 rounded-lg shadow-sm">
+    <div className="bg-background-tertiary p-4 rounded-lg shadow-sm border border-neutral-700/10 hover:border-neutral-700/30 transition-colors">
       <h4 className="text-xs font-medium text-foreground-tertiary mb-1">{title}</h4>
       <p className={`text-xl font-bold ${colorClass}`}>{value}</p>
       <p className="text-xs text-foreground-tertiary mt-1">{description}</p>
@@ -363,11 +365,11 @@ function KpiCard({ title, value, description, isPositive, isNegative, isNeutral 
 
 function RecommendationItem({ children }) {
   return (
-    <li className="flex items-start">
-      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-900/30 flex items-center justify-center mt-0.5 mr-2">
-        <FaRegCalendarAlt className="text-primary-500" size={10} />
+    <li className="flex items-start p-3 rounded-lg bg-background-tertiary border border-neutral-700/10 hover:border-primary-500/20 transition-colors">
+      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center mt-0.5 mr-3">
+        <FaRegCalendarAlt className="text-primary-500" size={12} />
       </div>
-      <span className="text-sm text-foreground-secondary">{children}</span>
+      <span className="text-sm text-foreground">{children}</span>
     </li>
   );
 } 
