@@ -23,8 +23,11 @@ import {
   FaCheck
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import CompetitorTable from './CompetitorTable';
+import AiInsights from './AiInsights';
+import SeoDetailCard from './SeoDetailCard';
 
-export default function GmbDataDashboard({ businessData, seoData }) {
+export default function GmbDataDashboard({ businessData, competitors = [], seoData, aiInsights, isEmbedded = false, onReset }) {
   const [expandedSection, setExpandedSection] = useState('overview');
   const [activeGmbTab, setActiveGmbTab] = useState('overview');
   
@@ -76,10 +79,18 @@ export default function GmbDataDashboard({ businessData, seoData }) {
         </div>
         
         <div className="flex flex-col items-end mt-4 md:mt-0">
+          {isEmbedded && onReset && (
+            <button
+              onClick={onReset}
+              className="mb-3 px-3 py-1 text-sm bg-neutral-800 hover:bg-neutral-700 text-white rounded-md"
+            >
+              Start New Analysis
+            </button>
+          )}
           <div className="bg-primary-900/20 p-3 rounded-lg flex items-center mb-2">
             <FaStar className="text-amber-500 mr-2" size={20} />
             <span className="text-xl font-bold">{businessData.rating}</span>
-            <span className="text-foreground-secondary ml-2">({businessData.reviews} reviews)</span>
+            <span className="text-foreground-secondary ml-2">({businessData.reviews || businessData.totalReviews} reviews)</span>
           </div>
           {businessData.website && (
             <a 
@@ -99,7 +110,7 @@ export default function GmbDataDashboard({ businessData, seoData }) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <MetricCard 
           title="Reviews" 
-          value={businessData.reviews.toLocaleString()} 
+          value={(businessData.reviews || businessData.totalReviews || 0).toLocaleString()} 
           icon={<FaComments className="text-primary-500" size={20} />} 
           description="Total customer reviews"
         />
@@ -214,7 +225,7 @@ export default function GmbDataDashboard({ businessData, seoData }) {
                   
                   <div className="flex justify-between mb-2">
                     <span className="text-sm text-foreground-tertiary">Reviews</span>
-                    <span className="text-sm font-medium text-foreground">{businessData.reviews?.toLocaleString() || 0}</span>
+                    <span className="text-sm font-medium text-foreground">{(businessData.reviews || businessData.totalReviews || 0).toLocaleString()}</span>
                   </div>
                   <div className="mb-2">
                     <div className="comparison-bar">
@@ -287,7 +298,7 @@ export default function GmbDataDashboard({ businessData, seoData }) {
                 <h4 className="text-lg font-medium text-foreground mb-4">Review Metrics</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-neutral-800 rounded-lg shadow-sm">
-                    <div className="text-3xl font-bold text-foreground mb-1">{businessData.reviews}</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">{(businessData.reviews || businessData.totalReviews || 0)}</div>
                     <div className="text-sm text-foreground-tertiary">Total Reviews</div>
                   </div>
                   
@@ -353,6 +364,58 @@ export default function GmbDataDashboard({ businessData, seoData }) {
             </div>
           </div>
         </DashboardSection>
+        
+        {/* Competitor Analysis Section */}
+        {competitors && competitors.length > 0 && (
+          <DashboardSection
+            title="Competitor Analysis"
+            icon={<FaSearch />}
+            color="primary"
+            isOpen={expandedSection === 'competitors'}
+            toggle={() => toggleSection('competitors')}
+          >
+            <div className="p-4 bg-background-secondary/50 rounded-lg">
+              <CompetitorTable 
+                businessData={businessData} 
+                competitors={competitors}
+                seoData={seoData}
+              />
+            </div>
+          </DashboardSection>
+        )}
+        
+        {/* SEO Analysis Section */}
+        {seoData && (
+          <DashboardSection
+            title="SEO Analysis"
+            icon={<FaGlobe />}
+            color="secondary"
+            isOpen={expandedSection === 'seo'}
+            toggle={() => toggleSection('seo')}
+          >
+            <div className="p-4 bg-background-secondary/50 rounded-lg">
+              <SeoDetailCard 
+                seoData={seoData} 
+                businessName={businessData.name}
+              />
+            </div>
+          </DashboardSection>
+        )}
+        
+        {/* AI Insights Section */}
+        {aiInsights && (
+          <DashboardSection
+            title="AI Insights"
+            icon={<FaLightbulb />}
+            color="warning"
+            isOpen={expandedSection === 'insights'}
+            toggle={() => toggleSection('insights')}
+          >
+            <div className="p-4 bg-background-secondary/50 rounded-lg">
+              <AiInsights insights={aiInsights} />
+            </div>
+          </DashboardSection>
+        )}
       </div>
     </motion.div>
   );

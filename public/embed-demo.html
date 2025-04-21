@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Comparison Tool - Embed Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    h1 {
+      color: #2563eb;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1.5rem;
+    }
+    .demo-container {
+      margin: 2rem 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background-color: #f9fafb;
+    }
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .feature-item {
+      padding: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+    .feature-item h3 {
+      margin-top: 0;
+      color: #2563eb;
+    }
+    .highlight {
+      background-color: rgba(59, 130, 246, 0.1);
+      border-left: 4px solid #3b82f6;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .feature-item.premium {
+      border-color: #8b5cf6;
+      background-color: rgba(139, 92, 246, 0.05);
+    }
+    .feature-item.premium h3 {
+      color: #8b5cf6;
+    }
+    .badge {
+      display: inline-block;
+      background-color: #8b5cf6;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <h1>Business Comparison Tool - Embed Demo</h1>
+  
+  <div class="section">
+    <h2>How to Embed the Business Comparison Tool</h2>
+    <p>
+      You can easily embed the Business Comparison Tool on your website by adding a container
+      element with the ID "business-tool" and including our embed script. The tool will automatically
+      render inside the container.
+    </p>
+    
+    <div class="highlight">
+      <strong>New!</strong> Our embeddable tool now includes AI analysis that provides actionable insights for your business based on your Google Maps data, competitor analysis, and SEO metrics.
+    </div>
+    
+    <div class="feature-list">
+      <div class="feature-item">
+        <h3>Google Maps Integration</h3>
+        <p>Simply enter a Google Maps business URL and get a complete analysis of your business and competitors.</p>
+      </div>
+      <div class="feature-item">
+        <h3>SEO Analysis</h3>
+        <p>Get insights into your website's SEO performance compared to competitors.</p>
+      </div>
+      <div class="feature-item premium">
+        <h3>AI-Powered Insights <span class="badge">New</span></h3>
+        <p>Receive intelligent recommendations and a complete AI analysis of your business strengths, weaknesses, and growth opportunities.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Basic Embed Code</h2>
+    <p>Add this code to your website where you want the Business Comparison Tool to appear:</p>
+    <div class="code-block">
+      <pre>&lt;div id="business-tool"&gt;&lt;/div&gt;
+&lt;script src="https://your-domain.com/embed.js"&gt;&lt;/script&gt;</pre>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>How to Use the Embedded Tool</h2>
+    <ol>
+      <li><strong>Find your Google Maps Business URL</strong> - Search for your business on Google Maps and copy the URL from your browser</li>
+      <li><strong>Paste the URL</strong> - Enter the URL in the form field</li>
+      <li><strong>Analyze</strong> - Click the "Analyze Business" button to get your full business analysis</li>
+      <li><strong>Review Results</strong> - See your business metrics, competitor analysis, and AI-powered recommendations</li>
+      <li><strong>AI Insights</strong> - Check the AI Insights section for personalized growth strategies and competitive analysis</li>
+    </ol>
+  </div>
+  
+  <div class="section">
+    <h2>AI Analysis Features</h2>
+    <p>Our embedded tool now includes powerful AI analysis capabilities:</p>
+    <ul>
+      <li><strong>Executive Growth Summary</strong> - Get a comprehensive overview of your business's online performance</li>
+      <li><strong>Growth Metrics</strong> - See your growth opportunity, competitive position, and market reach scores</li>
+      <li><strong>Business Strengths</strong> - Identify what's working well for your business</li>
+      <li><strong>Areas for Improvement</strong> - Discover opportunities to enhance your online presence</li>
+      <li><strong>Actionable Recommendations</strong> - Get specific strategies to outperform competitors</li>
+    </ul>
+  </div>
+  
+  <div class="section">
+    <h2>Customization Options</h2>
+    <p>
+      You can customize the appearance of the embedded tool by adding data attributes to the
+      container element:
+    </p>
+    <ul>
+      <li><strong>data-primary-color</strong>: Set the primary accent color (e.g., "#3b82f6")</li>
+      <li><strong>data-secondary-color</strong>: Set the secondary accent color (e.g., "#10b981")</li>
+      <li><strong>data-height</strong>: Set a custom height for the iframe (e.g., "800px")</li>
+      <li><strong>data-theme</strong>: Set the theme to "light" or "dark" (default is "dark")</li>
+    </ul>
+  </div>
+  
+  <div class="section">
+    <h2>Example with Customization</h2>
+    <div class="code-block">
+      <pre>&lt;div 
+  id="business-tool"
+  data-primary-color="#3b82f6"
+  data-secondary-color="#10b981"
+  data-height="800px"
+  data-theme="dark"
+&gt;&lt;/div&gt;
+&lt;script src="https://your-domain.com/embed.js"&gt;&lt;/script&gt;</pre>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Live Demo</h2>
+    <p>Below is a live demo of the Business Comparison Tool embedded on this page. Try it with a Google Maps business URL:</p>
+    <p><strong>Example URL:</strong> <code>https://www.google.com/maps/place/Starbucks/...</code></p>
+    
+    <div class="demo-container">
+      <div id="business-tool" data-primary-color="#3b82f6" data-secondary-color="#10b981" data-height="850px"></div>
+      <script src="/embed.js"></script>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Support</h2>
+    <p>
+      If you have any questions or need assistance with embedding the Business Comparison Tool
+      on your website, please contact our support team.
+    </p>
+  </div>
+</body>
+</html> 

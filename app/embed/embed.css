@@ -1,0 +1,61 @@
+/* Embed page specific styles */
+.embed-container {
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: var(--background, #0a0a0a);
+  color: var(--foreground, #ffffff);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: var(--font-inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+/* Glass card styling */
+.glass-card {
+  background-color: rgba(20, 20, 25, 0.7);
+  backdrop-filter: blur(8px);
+  border-color: rgba(60, 60, 70, 0.4);
+}
+
+.shadow-float {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Form elements */
+input:focus {
+  outline: none;
+}
+
+/* Custom scrollbar for embed */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 15, 15, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.6);
+}
+
+/* Responsive adjustments for embed */
+@media (max-width: 640px) {
+  .embed-container {
+    padding: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+} 
