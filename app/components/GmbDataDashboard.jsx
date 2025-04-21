@@ -14,12 +14,19 @@ import {
   FaUserFriends,
   FaPhoneAlt,
   FaGlobe,
-  FaTag
+  FaTag,
+  FaBuilding,
+  FaSearch,
+  FaHashtag,
+  FaLink,
+  FaLightbulb,
+  FaCheck
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function GmbDataDashboard({ businessData, seoData }) {
   const [expandedSection, setExpandedSection] = useState('overview');
+  const [activeGmbTab, setActiveGmbTab] = useState('overview');
   
   if (!businessData) return null;
 
@@ -125,41 +132,51 @@ export default function GmbDataDashboard({ businessData, seoData }) {
         <DashboardSection
           title="Business Overview"
           icon={<FaInfoCircle />}
-          color="primary"
+          color="info"
           isOpen={expandedSection === 'overview'}
           toggle={() => toggleSection('overview')}
         >
-          <div className="p-4 bg-background-secondary/50 rounded-lg">
+          <div className="glass-panel p-6 rounded-xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-lg font-medium text-foreground mb-4">Details</h4>
+                <h4 className="text-lg font-medium text-foreground mb-4 flex items-center">
+                  <FaBuilding className="mr-2 text-info-500" size={16} />
+                  Business Details
+                </h4>
                 <table className="w-full text-sm">
                   <tbody>
                     <tr>
                       <td className="py-2 pr-4 text-foreground-tertiary">Name:</td>
-                      <td className="py-2 font-medium">{businessData.name}</td>
+                      <td className="py-2 font-medium text-foreground">{businessData.name}</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4 text-foreground-tertiary">Category:</td>
-                      <td className="py-2">{businessData.category || 'Not specified'}</td>
+                      <td className="py-2 text-foreground">{businessData.category || 'Not specified'}</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4 text-foreground-tertiary">Address:</td>
-                      <td className="py-2">{businessData.address || 'Not available'}</td>
+                      <td className="py-2 text-foreground">{businessData.address || 'Not available'}</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4 text-foreground-tertiary">Phone:</td>
-                      <td className="py-2">{businessData.phone || 'Not available'}</td>
+                      <td className="py-2 text-foreground">{businessData.phone || 'Not available'}</td>
                     </tr>
                     <tr>
                       <td className="py-2 pr-4 text-foreground-tertiary">Website:</td>
-                      <td className="py-2">
+                      <td className="py-2 text-foreground">
                         {businessData.website ? (
-                          <a href={businessData.website} target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline flex items-center">
-                            {businessData.website.replace(/^https?:\/\/(www\.)?/, '')}
-                            <FaExternalLinkAlt className="ml-1" size={10} />
+                          <a 
+                            href={businessData.website} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-primary-500 hover:text-primary-400 hover:underline flex items-center"
+                          >
+                            {businessData.website.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}
+                            <FaExternalLinkAlt size={10} className="ml-1" />
                           </a>
-                        ) : 'Not available'}
+                        ) : (
+                          'Not available'
+                        )}
                       </td>
                     </tr>
                   </tbody>
@@ -167,39 +184,58 @@ export default function GmbDataDashboard({ businessData, seoData }) {
               </div>
               
               <div>
-                <h4 className="text-lg font-medium text-foreground mb-4">Online Presence</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <div className="w-full bg-gray-700 rounded-full h-4 mr-4">
+                <h4 className="text-lg font-medium text-foreground mb-4 flex items-center">
+                  <FaChartBar className="mr-2 text-info-500" size={16} />
+                  Online Presence
+                </h4>
+                
+                <div className="glass-panel p-4 rounded-xl mb-4">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm text-foreground-tertiary">Rating</span>
+                    <span className="text-sm font-medium text-foreground">{businessData.rating}/5</span>
+                  </div>
+                  <div className="mb-4">
+                    <div className="flex mb-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <FaStar 
+                          key={star} 
+                          className={star <= Math.round(businessData.rating) ? 'text-amber-400' : 'text-neutral-600'} 
+                          size={20}
+                        />
+                      ))}
+                    </div>
+                    <div className="comparison-bar">
                       <div 
-                        className="h-full bg-primary-500 rounded-full" 
+                        className="comparison-bar-fill bg-gradient-to-r from-amber-600 to-amber-400"
                         style={{ width: `${(businessData.rating / 5) * 100}%` }}
                       />
                     </div>
-                    <span className="text-foreground-secondary text-sm font-medium">{businessData.rating}/5</span>
                   </div>
                   
-                  <div className="flex items-center">
-                    <div className="w-full bg-gray-700 rounded-full h-4 mr-4">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm text-foreground-tertiary">Reviews</span>
+                    <span className="text-sm font-medium text-foreground">{businessData.reviews?.toLocaleString() || 0}</span>
+                  </div>
+                  <div className="mb-2">
+                    <div className="comparison-bar">
                       <div 
-                        className="h-full bg-secondary-500 rounded-full" 
-                        style={{ width: `${Math.min((businessData.reviews / 100), 100)}%` }}
+                        className="comparison-bar-fill bg-gradient-to-r from-primary-600 to-primary-400"
+                        style={{ width: `${Math.min((businessData.reviews / 200) * 100, 100)}%` }}
                       />
                     </div>
-                    <span className="text-foreground-secondary text-sm font-medium">{businessData.reviews.toLocaleString()}</span>
                   </div>
-                  
-                  {seoData && (
-                    <div className="flex items-center">
-                      <div className="w-full bg-gray-700 rounded-full h-4 mr-4">
-                        <div 
-                          className="h-full bg-green-500 rounded-full" 
-                          style={{ width: `${seoData.domainAuthority}%` }}
-                        />
-                      </div>
-                      <span className="text-foreground-secondary text-sm font-medium">Domain Authority</span>
-                    </div>
-                  )}
+                </div>
+                
+                <div className="flex justify-end">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 rounded-lg bg-primary-600 hover:bg-primary-500 text-white text-sm flex items-center shadow-md"
+                    onClick={() => setActiveGmbTab('analytics')}
+                  >
+                    <FaChartBar className="mr-2" size={12} />
+                    View Detailed Analytics
+                  </motion.button>
                 </div>
               </div>
             </div>
@@ -322,63 +358,105 @@ export default function GmbDataDashboard({ businessData, seoData }) {
   );
 }
 
-function MetricCard({ title, value, icon, description }) {
+function MetricCard({ title, value, icon, color = "primary", description }) {
+  const colorMap = {
+    primary: "from-primary-900/20 to-primary-900/5 text-primary-500",
+    secondary: "from-secondary-900/20 to-secondary-900/5 text-secondary-500",
+    success: "from-success-900/20 to-success-900/5 text-success-500",
+    info: "from-info-900/20 to-info-900/5 text-info-500",
+  };
+  
+  const colorClass = colorMap[color] || colorMap.primary;
+  
   return (
-    <div className="bg-neutral-800 p-4 rounded-lg shadow-sm flex items-start">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-900/30 flex items-center justify-center mr-3">
-        {icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-bold text-foreground">{value}</h3>
-        <div className="flex flex-col">
-          <span className="text-xs font-medium text-foreground-secondary">{title}</span>
-          <span className="text-xs text-foreground-tertiary">{description}</span>
+    <div className={`p-4 rounded-xl bg-gradient-to-br ${colorClass} border border-neutral-800 hover:shadow-md transition-shadow`}>
+      <div className="flex items-center mb-3">
+        <div className="mr-3 opacity-70">
+          {icon}
         </div>
+        <h5 className="text-sm font-medium text-foreground">{title}</h5>
       </div>
+      <div className="text-2xl font-bold text-foreground mb-1">{value}</div>
+      {description && (
+        <p className="text-xs text-foreground-tertiary">{description}</p>
+      )}
     </div>
   );
 }
 
 function DashboardSection({ title, icon, color = "primary", isOpen, toggle, children }) {
-  const colorClasses = {
-    primary: "from-primary-500 to-primary-600 text-white",
-    secondary: "from-secondary-500 to-secondary-600 text-white",
-    accent: "from-blue-500 to-indigo-600 text-white",
-    neutral: "from-neutral-500 to-neutral-600 text-white"
+  // Color maps for different section types
+  const colorMap = {
+    primary: {
+      bg: "bg-primary-900/30",
+      text: "text-primary-500",
+      hover: "hover:bg-primary-900/40",
+      gradient: "from-primary-900/20 to-primary-900/5"
+    },
+    secondary: {
+      bg: "bg-secondary-900/30",
+      text: "text-secondary-500",
+      hover: "hover:bg-secondary-900/40",
+      gradient: "from-secondary-900/20 to-secondary-900/5"
+    },
+    success: {
+      bg: "bg-success-900/30",
+      text: "text-success-500",
+      hover: "hover:bg-success-900/40",
+      gradient: "from-success-900/20 to-success-900/5"
+    },
+    info: {
+      bg: "bg-info-900/30",
+      text: "text-info-500",
+      hover: "hover:bg-info-900/40",
+      gradient: "from-info-900/20 to-info-900/5"
+    }
   };
   
+  const colorClass = colorMap[color] || colorMap.primary;
+  
   return (
-    <div className="border border-neutral-800 rounded-xl overflow-hidden">
-      <motion.div 
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="border border-neutral-800 rounded-xl overflow-hidden backdrop-blur-sm shadow-md"
+    >
+      <motion.button
+        className={`w-full py-4 px-5 flex items-center justify-between ${colorClass.hover} transition-colors focus:outline-none`}
+        whileHover={{ scale: 1.005 }}
+        whileTap={{ scale: 0.995 }}
         onClick={toggle}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
-        className={`flex justify-between items-center cursor-pointer bg-gradient-to-r ${colorClasses[color]} p-4`}
       >
-        <h3 className="text-lg font-semibold flex items-center">
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+        <div className="flex items-center">
+          <div className={`flex items-center justify-center w-10 h-10 rounded-full ${colorClass.bg} ${colorClass.text} mr-3 shadow-inner`}>
             {icon}
           </div>
-          {title}
-        </h3>
-        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-          {isOpen ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+          <h3 className="font-semibold text-foreground text-lg">{title}</h3>
         </div>
-      </motion.div>
-      
+        <div className={`flex items-center justify-center w-8 h-8 rounded-full ${isOpen ? colorClass.bg : 'bg-neutral-800'} transition-colors`}>
+          {isOpen ? (
+            <FaChevronUp className={isOpen ? colorClass.text : "text-foreground-tertiary"} size={14} />
+          ) : (
+            <FaChevronDown className="text-foreground-tertiary" size={14} />
+          )}
+        </div>
+      </motion.button>
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
+            className="overflow-hidden"
           >
-            {children}
+            <div className={`p-5 border-t border-neutral-800 bg-gradient-to-b ${colorClass.gradient}`}>
+              {children}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 
@@ -394,4 +472,19 @@ function InfoBox({ title, value, icon }) {
       <p className="text-foreground">{value}</p>
     </div>
   );
-} 
+}
+
+// Custom SEO Tip component
+const SeoTip = ({ title, description }) => {
+  return (
+    <li className="flex items-start p-2 rounded-lg hover:bg-secondary-900/20 transition-colors">
+      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-secondary-900/30 flex items-center justify-center mt-0.5 mr-2">
+        <FaCheck className="text-secondary-500" size={10} />
+      </div>
+      <div>
+        <h6 className="text-sm font-medium text-foreground">{title}</h6>
+        <p className="text-xs text-foreground-tertiary">{description}</p>
+      </div>
+    </li>
+  );
+}; 

@@ -19,7 +19,7 @@
   --glass-border: rgba(75, 85, 99, 0.3);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   
-  /* Brand Colors */
+  /* Brand Colors - Enhanced with more vibrant options */
   --primary-50: #e6f9f1;
   --primary-100: #ccf3e2;
   --primary-200: #99e7c5;
@@ -33,6 +33,23 @@
   
   --secondary-500: #0f9bff;
   --accent-500: #ff67b0;
+  
+  /* Additional Color Palette for Results Page */
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+  
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  
+  --info-500: #3b82f6;
+  --info-600: #2563eb;
+  --info-700: #1d4ed8;
+  
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
   
   /* Animation Timing */
   --transition-fast: 150ms;
@@ -70,13 +87,69 @@ body {
               color var(--transition-normal) var(--easing-standard);
 }
 
-/* Glass Card Effect - 2025 trend */
+/* Enhanced Glass Card Effect */
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.4);
+  border-color: rgba(85, 95, 109, 0.4);
+}
+
+/* Enhanced Glass Panel */
+.glass-panel {
+  background: rgba(31, 41, 55, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.glass-panel:hover {
+  background: rgba(31, 41, 55, 0.5);
+}
+
+/* Results Page Specific Styles */
+.results-tab {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.results-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-500);
+  transition: width 0.3s ease;
+}
+
+.results-tab:hover::after {
+  width: 100%;
+}
+
+.results-tab.active::after {
+  width: 100%;
+}
+
+.comparison-bar {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(31, 41, 55, 0.5);
+}
+
+.comparison-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Fluid Typography - 2025 trend */
@@ -147,4 +220,36 @@ button, a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Improved Table Styling */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+table td, table th {
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+table tbody tr:hover {
+  background-color: rgba(31, 41, 55, 0.7);
 }
