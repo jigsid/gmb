@@ -261,66 +261,69 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950">
+    <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-50">
+        <div className="absolute top-[5%] left-[15%] w-[25rem] h-[25rem] rounded-full bg-primary-600/10 blur-[120px]"></div>
+        <div className="absolute bottom-[10%] right-[5%] w-[20rem] h-[20rem] rounded-full bg-secondary-500/10 blur-[120px]"></div>
+        <div className="absolute top-[40%] right-[20%] w-[15rem] h-[15rem] rounded-full bg-accent-500/10 blur-[100px]"></div>
+      </div>
+      
       <Header currentStep={currentStep} onReset={resetForm} />
       
       {!businessData ? (
         <>
           {/* 2025 Hero Section - Full Height Split Layout */}
-          <section className="min-h-[calc(100vh-100px)] flex flex-col md:flex-row items-center pt-2">
+          <section className="min-h-[calc(100vh-100px)] flex flex-col md:flex-row items-center pt-2 relative z-10">
             {/* Left Side - Hero Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="w-full md:w-1/2 px-6 md:px-12 py-6 flex flex-col justify-center"
-            >
-              <div className="inline-flex items-center px-3 py-1.5 mb-6 rounded-full bg-primary-900/30 border border-primary-700/40">
-                <span className="w-2 h-2 rounded-full bg-primary-500 mr-2"></span>
+            <div className="w-full md:w-1/2 px-6 md:px-12 py-6 flex flex-col justify-center">
+              <div className="inline-flex items-center px-3 py-1.5 mb-6 rounded-full bg-primary-900/30 border border-primary-600/40 backdrop-blur-sm">
+                <div className="w-2 h-2 rounded-full bg-primary-500 animate-pulse mr-2"></div>
                 <span className="text-xs font-medium text-primary-400">2025 Business Intelligence</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Compare & Outrank Your <span className="text-blue-400">Business Competition</span>
+                Compare & Outrank Your <br/><span className="animated-gradient-text">Business Competition</span>
               </h1>
               
               <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl">
                 Leverage advanced AI to analyze your Google Business profile, identify competitors, and get actionable insights to improve your online presence.
               </p>
               
-              <div className="flex items-center space-x-4 text-sm text-gray-400 mb-6">
-                <div className="flex items-center">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
+                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
                   <FaCheckCircle className="text-primary-500 mr-2" />
                   <span>No credit card required</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
                   <FaCheckCircle className="text-primary-500 mr-2" />
                   <span>100% free analysis</span>
+                </div>
+                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
+                  <FaRocket className="text-secondary-500 mr-2" />
+                  <span>Instant results</span>
                 </div>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <a href="#gmb-form" className="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1">
+                <a href="#gmb-form" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1 glow-effect">
                   Get Started <FaArrowRight className="ml-2" />
                 </a>
-                <a href="#features" className="inline-flex items-center px-6 py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all">
+                <a href="#features" className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all hover:-translate-y-1">
                   Explore Features
                 </a>
                 <button 
                   onClick={() => document.getElementById('embed-code-modal').classList.remove('hidden')}
-                  className="inline-flex items-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all hover:-translate-y-1"
                 >
                   <FaCode className="mr-2" /> Get Embed Code
                 </button>
               </div>
-            </motion.div>
+            </div>
             
             {/* Right Side - GMB Form */}
-            <motion.div 
+            <div 
               id="gmb-form"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
               className="w-full md:w-1/2 px-6 md:px-12 py-6 mt-[-30px] flex justify-center items-center"
             >
               <div className="w-full max-w-md glass-card p-6 pt-4 rounded-2xl border border-card-border shadow-2xl backdrop-blur-md bg-gray-900/70 relative overflow-hidden">
@@ -328,7 +331,12 @@ export default function Home() {
                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-secondary-500/20 rounded-full blur-3xl"></div>
                 
                 <div className="relative">
-                  <h2 className="text-2xl font-bold text-white mb-4">Analyze Your Business</h2>
+                  <div className="flex items-center mb-4">
+                    <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-primary-500 to-secondary-500 flex items-center justify-center mr-3">
+                      <FaChartBar className="text-white" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white">Analyze Your Business</h2>
+                  </div>
                   <BusinessForm 
                     onSubmit={handleSubmit} 
                     isLoading={isLoading} 
@@ -336,44 +344,55 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </motion.div>
+            </div>
           </section>
           
           {/* Trust Indicators */}
-          <section className="py-12 bg-gray-900/50">
+          <section className="py-12 bg-gradient-to-b from-gray-900/80 to-gray-900/30 relative z-10">
             <div className="container mx-auto px-6">
               <div className="flex flex-col items-center mb-12 text-center">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-secondary-500 to-accent-500 flex items-center justify-center mb-4">
+                  <FaShieldAlt className="text-white" />
+                </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Trusted by Businesses Worldwide</h2>
                 <p className="text-gray-400 max-w-2xl">Our platform provides accurate insights based on real data to help businesses improve their online presence.</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <TrustCard 
-                  icon={<FaShieldAlt />}
-                  title="Data Security"
-                  description="Your business data is secure and never shared with third parties."
-                />
-                <TrustCard 
-                  icon={<FaRocket />}
-                  title="Actionable Insights"
-                  description="Get specific recommendations to improve rankings and visibility."
-                />
-                <TrustCard 
-                  icon={<FaStar />}
-                  title="Competitor Analysis"
-                  description="Know exactly how you stack up against similar businesses in your area."
-                />
+                <div className="group">
+                  <TrustCard 
+                    icon={<FaShieldAlt />}
+                    title="Data Security"
+                    description="Your business data is secure and never shared with third parties."
+                  />
+                </div>
+                <div className="group">
+                  <TrustCard 
+                    icon={<FaRocket />}
+                    title="Actionable Insights"
+                    description="Get specific recommendations to improve rankings and visibility."
+                  />
+                </div>
+                <div className="group">
+                  <TrustCard 
+                    icon={<FaStar />}
+                    title="Competitor Analysis"
+                    description="Know exactly how you stack up against similar businesses in your area."
+                  />
+                </div>
               </div>
             </div>
           </section>
-           {/* Pricing Comparison - New */}
-           <section className="py-16 bg-gray-950 relative overflow-hidden">
+          
+          {/* Pricing Comparison - Gen Z Edition */}
+          <section className="py-16 bg-gray-950 relative overflow-hidden">
             <div className="absolute -bottom-80 right-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl"></div>
             <div className="absolute -top-40 -left-20 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
             
             <div className="container mx-auto px-6 relative z-10">
               <div className="flex flex-col items-center mb-12 text-center">
-                <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-secondary-900/30 border border-secondary-700/40">
+                <div className="inline-flex items-center px-3 py-1.5 mb-4 rounded-full bg-secondary-900/30 border border-secondary-600/40 backdrop-blur-sm">
+                  <div className="w-2 h-2 rounded-full bg-secondary-500 animate-pulse mr-2"></div>
                   <span className="text-xs font-medium text-secondary-400">Free vs Premium</span>
                 </div>
                 
@@ -385,7 +404,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* Free Plan */}
                   <div className="col-span-1">
-                    <div className="h-full rounded-2xl border border-gray-800 bg-gray-900/50 backdrop-blur-sm p-8 flex flex-col">
+                    <div className="h-full rounded-2xl border border-gray-800 bg-gray-900/50 backdrop-blur-sm p-8 flex flex-col hover:border-gray-700 transition-all duration-300 hover:-translate-y-1">
                       <div className="mb-8">
                         <h3 className="text-xl font-bold text-white mb-2">Free Plan</h3>
                         <p className="text-gray-400">Basic features for small businesses</p>
@@ -408,7 +427,7 @@ export default function Home() {
                         <PlanFeature text="White-label reports" />
                       </div>
                       
-                      <a href="#gmb-form" className="inline-flex justify-center items-center px-6 py-3 rounded-lg border border-gray-600 text-white font-medium hover:bg-gray-800 transition-all w-full">
+                      <a href="#gmb-form" className="inline-flex justify-center items-center px-6 py-3 rounded-lg border border-gray-600 text-white font-medium hover:bg-gray-800 transition-all w-full hover:-translate-y-1">
                         Get Started
                       </a>
                     </div>
@@ -416,8 +435,8 @@ export default function Home() {
                   
                   {/* Premium Plan */}
                   <div className="col-span-1 lg:col-span-2">
-                    <div className="h-full rounded-2xl border border-primary-600 bg-gradient-to-b from-gray-900/80 to-gray-900/60 backdrop-blur-sm p-8 flex flex-col relative overflow-hidden">
-                      <div className="absolute top-0 right-0 bg-primary-600 text-white px-4 py-1 text-sm font-bold transform rotate-0 translate-x-2 -translate-y-0 rounded-bl-lg">
+                    <div className="h-full rounded-2xl gradient-border bg-gradient-to-b from-gray-900/80 to-gray-900/60 backdrop-blur-sm p-8 flex flex-col relative overflow-hidden hover:-translate-y-1 transition-all duration-300">
+                      <div className="absolute top-0 right-0 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-1 text-sm font-bold transform rotate-0 translate-x-2 -translate-y-0 rounded-bl-lg">
                         RECOMMENDED
                       </div>
                       
@@ -446,7 +465,7 @@ export default function Home() {
                         <PlanFeature included text="API access" />
                       </div>
                       
-                      <button className="inline-flex justify-center items-center px-6 py-3 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium hover:shadow-lg hover:shadow-primary-600/20 transition-all w-full">
+                      <button className="inline-flex justify-center items-center px-6 py-3 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium hover:shadow-lg hover:shadow-primary-600/20 transition-all w-full hover:-translate-y-1 glow-effect">
                         Start 14-Day Free Trial
                       </button>
                       <p className="text-xs text-center text-gray-400 mt-2">No credit card required</p>
@@ -457,17 +476,12 @@ export default function Home() {
                 <div className="mt-12 text-center">
                   <p className="text-gray-400 mb-4">Need a custom plan for your enterprise?</p>
                   <a href="#" className="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
-                    Contact us for enterprise solutions
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    Contact us <FaArrowRight className="ml-2" />
                   </a>
                 </div>
               </div>
             </div>
           </section>
-          
-          
           
           {/* Feature Section - kept from previous version but styled to match new design */}
           <section id="features" className="py-16 bg-gradient-to-b from-gray-900 to-gray-950">
@@ -1104,16 +1118,17 @@ function FeatureCard({ icon, title, description }) {
 
 function TrustCard({ icon, title, description }) {
   return (
-    <motion.div 
-      whileHover={{ y: -5 }}
-      className="p-6 rounded-xl border border-gray-800 bg-gray-800/30 backdrop-blur-sm flex flex-col items-center text-center"
-    >
-      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-900/50 text-primary-400 mb-4">
-        {icon}
+    <div className="h-full p-6 rounded-2xl backdrop-blur-sm bg-gray-800/30 border border-gray-700 hover:border-primary-500/50 transition-all duration-300 hover:-translate-y-1 group">
+      <div className="flex flex-col h-full">
+        <div className="p-3 mb-4 inline-flex rounded-xl bg-gradient-to-br from-gray-700 to-gray-800 group-hover:from-primary-600 group-hover:to-secondary-600 transition-all duration-300">
+          <div className="w-8 h-8 flex items-center justify-center text-white text-xl">
+            {icon}
+          </div>
+        </div>
+        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">{title}</h3>
+        <p className="text-gray-400">{description}</p>
       </div>
-      <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
-      <p className="text-gray-400">{description}</p>
-    </motion.div>
+    </div>
   );
 }
 
@@ -1218,15 +1233,17 @@ function FaqItem({ question, answer }) {
 
 function PlanFeature({ text, included, className }) {
   return (
-    <div className={`flex items-start ${className || ''}`}>
+    <div className={`flex items-center gap-2 ${className}`}>
       {included ? (
-        <FaCheckCircle className="text-primary-500 mt-1 mr-2 flex-shrink-0" size={14} />
+        <div className="w-5 h-5 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-xs text-white">
+          <FaCheckCircle />
+        </div>
       ) : (
-        <svg className="h-4 w-4 text-gray-500 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <div className="w-5 h-5 rounded-full bg-gray-800 flex items-center justify-center text-xs text-gray-500">
+          <FaEllipsisH />
+        </div>
       )}
-      <span className={included ? "text-gray-300" : "text-gray-500"}>{text}</span>
+      <span className={included ? 'text-gray-300' : 'text-gray-500'}>{text}</span>
     </div>
   );
 }

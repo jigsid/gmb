@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import GmbUrlHelper from './GmbUrlHelper';
-import { FaExclamationTriangle, FaBuilding, FaGlobe, FaStar, FaMapMarkerAlt, FaInfoCircle, FaSearch, FaChartBar, FaLightbulb, FaRobot, FaArrowRight } from 'react-icons/fa';
+import { FaExclamationTriangle, FaBuilding, FaGlobe, FaStar, FaMapMarkerAlt, FaInfoCircle, FaSearch, FaChartBar, FaLightbulb, FaRobot, FaArrowRight, FaRocket, FaLock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export default function BusinessForm({ onSubmit, isLoading, error }) {
@@ -35,15 +35,10 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className="w-full"
-    >
-      <motion.form 
+    <div className="w-full">
+      <form 
         onSubmit={handleSubmit} 
-        className="space-y-4"
+        className="space-y-5"
       >
         <div>
           <div className={`relative transition-all duration-300 ${isFocused ? 'scale-[1.02]' : 'scale-100'}`}>
@@ -59,43 +54,35 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder="Enter your Google Business URL"
-              className={`w-full pl-12 pr-4 py-4 rounded-xl border text-[15px] ${
+              className={`w-full pl-12 pr-4 py-4 rounded-xl border backdrop-blur-sm text-[15px] ${
                 formError 
                   ? 'border-red-400 bg-red-900/10' 
                   : isFocused 
-                    ? 'border-primary-400 ring-2 ring-primary-900/30' 
-                    : 'border-gray-700 bg-gray-800/50'
-              } focus:outline-none backdrop-blur-sm transition-all duration-300 placeholder:text-gray-500`}
+                    ? 'gradient-border bg-transparent' 
+                    : 'border-gray-700 bg-gray-800/50 hover:border-gray-600'
+              } focus:outline-none transition-all duration-300 placeholder:text-gray-500`}
               disabled={isLoading}
               aria-invalid={!!formError}
               aria-describedby={formError ? "url-error" : undefined}
             />
             
             {error && (
-              <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-2 text-red-400 text-sm flex items-center p-2 bg-red-900/10 rounded-lg"
-              >
-                <FaExclamationTriangle className="mr-2 text-red-400" size={14} />
+              <div className="mt-2 text-red-400 text-sm flex items-center p-3 bg-red-900/10 rounded-lg border border-red-900/30">
+                <FaExclamationTriangle className="mr-2 text-red-400 flex-shrink-0" size={14} />
                 {error}
-              </motion.div>
+              </div>
             )}
             
             {formError && (
-              <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-2 text-red-400 text-sm flex items-center p-2 bg-red-900/10 rounded-lg"
-              >
-                <FaExclamationTriangle className="mr-2 text-red-400" size={14} />
+              <div className="mt-2 text-red-400 text-sm flex items-center p-3 bg-red-900/10 rounded-lg border border-red-900/30">
+                <FaExclamationTriangle className="mr-2 text-red-400 flex-shrink-0" size={14} />
                 {formError}
-              </motion.div>
+              </div>
             )}
             
             {!error && !formError && (
               <div className="mt-2 text-gray-400 text-sm flex items-center">
-                <FaInfoCircle className="mr-2 text-primary-400" size={14} />
+                <FaInfoCircle className="mr-2 text-primary-400 flex-shrink-0" size={14} />
                 Enter the URL from Google Maps for your business
               </div>
             )}
@@ -104,29 +91,37 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
           <GmbUrlHelper />
         </div>
         
-        <div className="space-y-3 text-sm">
+        <div className="space-y-3 text-sm p-4 rounded-xl bg-gray-800/20 border border-gray-800">
+          <div className="text-gray-300 font-medium mb-2">What you'll get:</div>
           <div className="flex items-center">
-            <div className="flex items-center justify-center w-6 h-6 mr-2 rounded-full bg-primary-900/30">
-              <FaChartBar className="text-primary-500" size={14} />
+            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-primary-500 to-primary-700">
+              <FaChartBar className="text-white" size={12} />
             </div>
             <span className="text-gray-300">Compare with competitors in your area</span>
           </div>
           
           <div className="flex items-center">
-            <div className="flex items-center justify-center w-6 h-6 mr-2 rounded-full bg-secondary-900/30">
-              <FaLightbulb className="text-secondary-400" size={14} />
+            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-secondary-500 to-secondary-700">
+              <FaLightbulb className="text-white" size={12} />
             </div>
             <span className="text-gray-300">Get AI-powered growth recommendations</span>
+          </div>
+          
+          <div className="flex items-center">
+            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-accent-500 to-accent-700">
+              <FaRocket className="text-white" size={12} />
+            </div>
+            <span className="text-gray-300">Actionable insights to improve visibility</span>
           </div>
         </div>
         
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full relative overflow-hidden rounded-xl py-4 text-base font-semibold border-2 ${
+          className={`w-full relative overflow-hidden rounded-xl py-4 text-base font-semibold ${
             isLoading 
-              ? 'bg-gray-700 cursor-not-allowed text-gray-400 border-gray-600'
-              : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:shadow-lg hover:shadow-primary-600/20 active:shadow-sm transition-all border-primary-500'
+              ? 'bg-gray-700 cursor-not-allowed text-gray-400 border border-gray-600'
+              : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:shadow-lg hover:shadow-primary-600/20 active:shadow-sm transition-all hover:-translate-y-1 glow-effect'
           }`}
         >
           {isLoading ? (
@@ -146,10 +141,13 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
         
         <div className="flex items-center justify-center">
           <div className="h-px bg-gray-800 flex-grow mr-3"></div>
-          <span className="text-xs text-gray-500">100% free, no credit card</span>
+          <span className="flex items-center text-xs text-gray-500">
+            <FaLock className="mr-1" size={10} />
+            100% free, no credit card
+          </span>
           <div className="h-px bg-gray-800 flex-grow ml-3"></div>
         </div>
-      </motion.form>
-    </motion.div>
+      </form>
+    </div>
   );
 } 
