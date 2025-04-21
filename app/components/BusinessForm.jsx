@@ -38,12 +38,12 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
     <div className="w-full">
       <form 
         onSubmit={handleSubmit} 
-        className="space-y-5"
+        className="space-y-4"
       >
         <div>
           <div className={`relative transition-all duration-300 ${isFocused ? 'scale-[1.02]' : 'scale-100'}`}>
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <FaSearch className={`${isFocused ? 'text-primary-500' : 'text-neutral-400'} transition-colors`} size={16} />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <FaSearch className={`${isFocused ? 'text-primary-500' : 'text-neutral-400'} transition-colors`} size={14} />
             </div>
             <input
               ref={inputRef}
@@ -54,7 +54,7 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               placeholder="Enter your Google Business URL"
-              className={`w-full pl-12 pr-4 py-4 rounded-xl border backdrop-blur-sm text-[15px] ${
+              className={`w-full pl-10 pr-3 py-3 rounded-xl border backdrop-blur-sm text-[14px] ${
                 formError 
                   ? 'border-red-400 bg-red-900/10' 
                   : isFocused 
@@ -67,22 +67,22 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
             />
             
             {error && (
-              <div className="mt-2 text-red-400 text-sm flex items-center p-3 bg-red-900/10 rounded-lg border border-red-900/30">
-                <FaExclamationTriangle className="mr-2 text-red-400 flex-shrink-0" size={14} />
+              <div className="mt-1.5 text-red-400 text-xs flex items-center p-2 bg-red-900/10 rounded-lg border border-red-900/30">
+                <FaExclamationTriangle className="mr-1.5 text-red-400 flex-shrink-0" size={12} />
                 {error}
               </div>
             )}
             
             {formError && (
-              <div className="mt-2 text-red-400 text-sm flex items-center p-3 bg-red-900/10 rounded-lg border border-red-900/30">
-                <FaExclamationTriangle className="mr-2 text-red-400 flex-shrink-0" size={14} />
+              <div className="mt-1.5 text-red-400 text-xs flex items-center p-2 bg-red-900/10 rounded-lg border border-red-900/30">
+                <FaExclamationTriangle className="mr-1.5 text-red-400 flex-shrink-0" size={12} />
                 {formError}
               </div>
             )}
             
             {!error && !formError && (
-              <div className="mt-2 text-gray-400 text-sm flex items-center">
-                <FaInfoCircle className="mr-2 text-primary-400 flex-shrink-0" size={14} />
+              <div className="mt-1 text-gray-400 text-xs flex items-center ml-1">
+                <FaInfoCircle className="mr-1.5 text-primary-400 flex-shrink-0" size={12} />
                 Enter the URL from Google Maps for your business
               </div>
             )}
@@ -91,25 +91,25 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
           <GmbUrlHelper />
         </div>
         
-        <div className="space-y-3 text-sm p-4 rounded-xl bg-gray-800/20 border border-gray-800">
-          <div className="text-gray-300 font-medium mb-2">What you'll get:</div>
+        <div className="space-y-2 text-sm p-3 rounded-xl bg-gray-800/20 border border-gray-800">
+          <div className="text-gray-300 font-medium mb-1.5">What you'll get:</div>
           <div className="flex items-center">
-            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-primary-500 to-primary-700">
-              <FaChartBar className="text-white" size={12} />
+            <div className="flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gradient-to-br from-primary-500 to-primary-700">
+              <FaChartBar className="text-white" size={10} />
             </div>
             <span className="text-gray-300">Compare with competitors in your area</span>
           </div>
           
           <div className="flex items-center">
-            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-secondary-500 to-secondary-700">
-              <FaLightbulb className="text-white" size={12} />
+            <div className="flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gradient-to-br from-secondary-500 to-secondary-700">
+              <FaLightbulb className="text-white" size={10} />
             </div>
             <span className="text-gray-300">Get AI-powered growth recommendations</span>
           </div>
           
           <div className="flex items-center">
-            <div className="flex items-center justify-center w-6 h-6 mr-3 rounded-full bg-gradient-to-br from-accent-500 to-accent-700">
-              <FaRocket className="text-white" size={12} />
+            <div className="flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gradient-to-br from-accent-500 to-accent-700">
+              <FaRocket className="text-white" size={10} />
             </div>
             <span className="text-gray-300">Actionable insights to improve visibility</span>
           </div>
@@ -118,7 +118,7 @@ export default function BusinessForm({ onSubmit, isLoading, error }) {
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full relative overflow-hidden rounded-xl py-4 text-base font-semibold ${
+          className={`w-full relative overflow-hidden rounded-xl py-3 text-base font-semibold ${
             isLoading 
               ? 'bg-gray-700 cursor-not-allowed text-gray-400 border border-gray-600'
               : 'bg-gradient-to-r from-primary-600 to-secondary-600 hover:shadow-lg hover:shadow-primary-600/20 active:shadow-sm transition-all hover:-translate-y-1 glow-effect'

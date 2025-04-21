@@ -6,15 +6,15 @@ export default function GmbUrlHelper() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mt-4">
+    <div className="mt-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-xs text-primary-400 hover:text-primary-300 flex items-center transition-colors px-2 py-1 rounded-lg hover:bg-primary-900/20"
+        className="text-xs text-primary-400 hover:text-primary-300 flex items-center transition-colors px-2 py-0.5 rounded-lg hover:bg-primary-900/20"
         type="button"
       >
-        <FaInfoCircle className="mr-1.5" size={12} />
+        <FaInfoCircle className="mr-1" size={10} />
         {isOpen ? 'Hide instructions' : 'How to find your business on Google Maps'}
-        {isOpen ? <FaChevronUp className="ml-1.5" size={10} /> : <FaChevronDown className="ml-1.5" size={10} />}
+        {isOpen ? <FaChevronUp className="ml-1" size={9} /> : <FaChevronDown className="ml-1" size={9} />}
       </button>
 
       {isOpen && (

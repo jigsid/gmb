@@ -276,47 +276,47 @@ export default function Home() {
           {/* 2025 Hero Section - Full Height Split Layout */}
           <section className="min-h-[calc(100vh-100px)] flex flex-col md:flex-row items-center pt-2 relative z-10">
             {/* Left Side - Hero Content */}
-            <div className="w-full md:w-1/2 px-6 md:px-12 py-6 flex flex-col justify-center">
-              <div className="inline-flex items-center px-3 py-1.5 mb-6 rounded-full bg-primary-900/30 border border-primary-600/40 backdrop-blur-sm">
+            <div className="w-full md:w-1/2 px-6 md:px-10 py-4 flex flex-col justify-center">
+              <div className="inline-flex items-center px-3 py-1 mb-4 rounded-full bg-primary-900/30 border border-primary-600/40 backdrop-blur-sm">
                 <div className="w-2 h-2 rounded-full bg-primary-500 animate-pulse mr-2"></div>
                 <span className="text-xs font-medium text-primary-400">2025 Business Intelligence</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Compare & Outrank Your <br/><span className="animated-gradient-text">Business Competition</span>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+                Compare & Outrank Your <span className="animated-gradient-text">Business Competition</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl">
+              <p className="text-base md:text-lg text-gray-300 mb-5 max-w-lg">
                 Leverage advanced AI to analyze your Google Business profile, identify competitors, and get actionable insights to improve your online presence.
               </p>
               
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-6">
-                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
-                  <FaCheckCircle className="text-primary-500 mr-2" />
+              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400 mb-4">
+                <div className="flex items-center px-2.5 py-1 rounded-full bg-gray-800/50 backdrop-blur-sm">
+                  <FaCheckCircle className="text-primary-500 mr-1.5" size={10} />
                   <span>No credit card required</span>
                 </div>
-                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
-                  <FaCheckCircle className="text-primary-500 mr-2" />
+                <div className="flex items-center px-2.5 py-1 rounded-full bg-gray-800/50 backdrop-blur-sm">
+                  <FaCheckCircle className="text-primary-500 mr-1.5" size={10} />
                   <span>100% free analysis</span>
                 </div>
-                <div className="flex items-center px-3 py-1.5 rounded-full bg-gray-800/50 backdrop-blur-sm">
-                  <FaRocket className="text-secondary-500 mr-2" />
+                <div className="flex items-center px-2.5 py-1 rounded-full bg-gray-800/50 backdrop-blur-sm">
+                  <FaRocket className="text-secondary-500 mr-1.5" size={10} />
                   <span>Instant results</span>
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <a href="#gmb-form" className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1 glow-effect">
-                  Get Started <FaArrowRight className="ml-2" />
+              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                <a href="#gmb-form" className="inline-flex items-center justify-center px-5 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1 glow-effect">
+                  Get Started <FaArrowRight className="ml-2" size={12} />
                 </a>
-                <a href="#features" className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all hover:-translate-y-1">
+                <a href="#features" className="inline-flex items-center justify-center px-5 py-2 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800/50 transition-all hover:-translate-y-1">
                   Explore Features
                 </a>
                 <button 
                   onClick={() => document.getElementById('embed-code-modal').classList.remove('hidden')}
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all hover:-translate-y-1"
+                  className="inline-flex items-center px-5 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1 glow-effect border border-primary-400/30"
                 >
-                  <FaCode className="mr-2" /> Get Embed Code
+                  <FaCode className="mr-2" size={12} /> Get Embed Code
                 </button>
               </div>
             </div>
@@ -324,18 +324,18 @@ export default function Home() {
             {/* Right Side - GMB Form */}
             <div 
               id="gmb-form"
-              className="w-full md:w-1/2 px-6 md:px-12 py-6 mt-[-30px] flex justify-center items-center"
+              className="w-full md:w-1/2 px-6 md:px-10 py-4 flex justify-center items-center"
             >
-              <div className="w-full max-w-md glass-card p-6 pt-4 rounded-2xl border border-card-border shadow-2xl backdrop-blur-md bg-gray-900/70 relative overflow-hidden">
+              <div className="w-full max-w-md glass-card p-5 pt-4 rounded-2xl border border-card-border shadow-2xl backdrop-blur-md bg-gray-900/70 relative overflow-hidden">
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary-500/20 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-secondary-500/20 rounded-full blur-3xl"></div>
                 
                 <div className="relative">
-                  <div className="flex items-center mb-4">
-                    <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-primary-500 to-secondary-500 flex items-center justify-center mr-3">
-                      <FaChartBar className="text-white" />
+                  <div className="flex items-center mb-3">
+                    <div className="h-7 w-7 rounded-lg bg-gradient-to-tr from-primary-500 to-secondary-500 flex items-center justify-center mr-2.5">
+                      <FaChartBar className="text-white" size={13} />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">Analyze Your Business</h2>
+                    <h2 className="text-xl font-bold text-white">Analyze Your Business</h2>
                   </div>
                   <BusinessForm 
                     onSubmit={handleSubmit} 
@@ -599,9 +599,9 @@ export default function Home() {
                       </a>
                       <button 
                         onClick={() => document.getElementById('embed-code-modal').classList.remove('hidden')}
-                        className="inline-flex items-center px-6 py-3 rounded-xl border border-blue-700 text-blue-400 font-medium hover:bg-blue-900/20 transition-all"
+                        className="inline-flex items-center px-5 py-2 rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-medium shadow-lg hover:shadow-primary-600/20 transition-all hover:-translate-y-1 glow-effect border border-primary-400/30"
                       >
-                        <FaCode className="mr-2" /> Get Embed Code
+                        <FaCode className="mr-2" size={12} /> Get Embed Code
                       </button>
                     </div>
                   </div>
@@ -735,7 +735,7 @@ export default function Home() {
                     </a>
                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.031 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                       </svg>
                     </a>
                   </div>
