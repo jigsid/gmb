@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FaSearch, FaMapMarkerAlt, FaExclamationTriangle } from 'react-icons/fa';
 import GmbDataDashboard from '../components/GmbDataDashboard';
 import LoadingState from '../components/LoadingState';
 import './embed.css';
 
-export default function EmbedPage() {
+function EmbedPageContent() {
   const [businessData, setBusinessData] = useState(null);
   const [competitors, setCompetitors] = useState([]);
   const [seoData, setSeoData] = useState(null);
@@ -275,5 +275,13 @@ export default function EmbedPage() {
         Powered by Business Comparison Tool
       </div>
     </div>
+  );
+}
+
+export default function EmbedPage() {
+  return (
+    <Suspense fallback={<LoadingState message="Loading..." />}>
+      <EmbedPageContent />
+    </Suspense>
   );
 } 
